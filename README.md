@@ -16,6 +16,7 @@ Avant de compiler et d'exécuter le projet, assurez-vous d'avoir :
   Gradle (ou utilisez le wrapper inclus gradlew).
 
 ## Structure du Projet
+```
 ├── core                # Code source du moteur de jeu
 ├── lwjgl3              # Code source pour la plateforme de bureau
 ├── concreate_game      # Exemple de jeu utilisant le moteur
@@ -24,6 +25,7 @@ Avant de compiler et d'exécuter le projet, assurez-vous d'avoir :
 ├── gradlew             # Script Gradle Wrapper (Linux/Mac)
 ├── gradlew.bat         # Script Gradle Wrapper (Windows)
 └── README.md           # Ce fichier
+```
 
 ## Gradle
 
@@ -50,8 +52,10 @@ Tâches Utiles
 ### Étape 1 : Cloner le Dépôt
 
 Clonez ce projet dans votre répertoire local :
-`git clone <url-du-dépôt>
-cd TestJava2`
+```
+git clone <url-du-dépôt>
+cd TestJava2
+```
 
 ### Étape 2 : Compiler le Projet
 
@@ -60,26 +64,40 @@ Utilisez Gradle pour compiler le projet.
 Avec le wrapper Gradle :
 
 Sur Linux/Mac :
-`./gradlew build`
+```
+./gradlew build
+```
 Sur Windows :
-`gradlew.bat build`
+```
+gradlew.bat build
+```
 Avec une installation locale de Gradle :
-`gradle build`
+```
+gradle build
+```
 
 ### Étape 3 : Exécuter un Jeu Exemple
 
 Un jeu exemple est inclus dans le dossier concreate_game. Vous pouvez le lancer directement pour voir le moteur en action.
 
 Sur Linux/Mac :
-`./run.sh`
+```
+./run.sh
+```
 Sur Windows :
-`run.bat`
+```
+run.bat
+```
 Ou utilisez directement Gradle :
 
 Sur Linux/Mac :
-`./gradlew lwjgl3:run`
+```
+./gradlew lwjgl3:run
+```
 Sur Windows :
-`gradlew.bat lwjgl3:run`
+```
+gradlew.bat lwjgl3:run
+```
 
 Pour créer votre propre jeu, ajoutez vos fichiers au dossier concreate_game en suivant l'exemple fourni.
 
@@ -108,10 +126,9 @@ if not exist "build" (
   echo Compilation en cours...
   gradlew.bat build
 )
-```
-
 :: Exécuter le jeu
 gradlew.bat lwjgl3:run
+```
 
 ## Licence
 
