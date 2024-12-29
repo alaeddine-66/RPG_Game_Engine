@@ -1,8 +1,8 @@
 {
   "id": "Normal",
-  "idlePath": "assets/sprite/zombie_idle.png",
-  "movePath": "assets/sprite/zombie_mvt.png",
-  "attackPath": "assets/sprite/zombie_attack.png",
+  "idlePath": "concreate_game/src/assets/sprite/zombie_idle.png",
+  "movePath": "concreate_game/src/assets/sprite/zombie_mvt.png",
+  "attackPath": "concreate_game/src/assets/sprite/zombie_attack.png",
   "width": 32,
   "height": 32,
   "damage": 20,

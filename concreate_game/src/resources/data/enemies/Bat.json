@@ -1,8 +1,8 @@
 {
   "id": "Bat",
-  "idlePath": "assets/sprite/bat.png",
-  "movePath": "assets/sprite/bat-mvt.png",
-  "attackPath": "assets/sprite/bat.png",
+  "idlePath": "concreate_game/src/assets/sprite/bat.png",
+  "movePath": "concreate_game/src/assets/sprite/bat-mvt.png",
+  "attackPath": "concreate_game/src/assets/sprite/bat.png",
   "width": 28,
   "height": 16,
   "damage": 10,

@@ -174,7 +174,7 @@ public class Main extends ApplicationAdapter {
 
         batch = new SpriteBatch();
 
-        gameMap = new MapLoader("assets/maps/maps2/map.tmx"); // Charger une carte
+        gameMap = new MapLoader("concreate_game/src/assets/maps/maps2/map.tmx"); // Charger une carte
         collisionManager = new CollisionManager(gameMap);
 
 

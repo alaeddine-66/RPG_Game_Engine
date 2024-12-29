@@ -13,7 +13,7 @@ public class CurrencyInfoComponent extends AbstractHUDComponents {
 
     public CurrencyInfoComponent(SpriteBatch batch, OrthographicCamera camera, HUDDataProvider dataProvider) {
         super(batch, camera, dataProvider);
-        this.coinTexture =  new Texture("bg/coin.png");
+        this.coinTexture =  new Texture("concreate_game/src/assets/bg/coin.png");
     }
 
     @Override

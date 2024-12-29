@@ -1,7 +1,7 @@
 {
   "name": "Pistol",
   "type": "Gun",
-  "path": "assets/sprite/gin_02.png",
+  "path": "concreate_game/src/assets/sprite/gin_02.png",
   "projectile": "Bullet",
   "projectileBehavior": "default",
   "damage": 10,

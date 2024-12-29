@@ -18,7 +18,7 @@ public class ExpBarComponent extends AbstractHUDComponents {
     public ExpBarComponent(SpriteBatch batch, OrthographicCamera camera, HUDDataProvider dataProvider) {
         super(batch, camera, dataProvider);
         this.shapeRenderer = new ShapeRenderer();
-        this.xpTexture = new Texture("bg/xp.png");
+        this.xpTexture = new Texture("concreate_game/src/assets/bg/xp.png");
     }
 
     @Override

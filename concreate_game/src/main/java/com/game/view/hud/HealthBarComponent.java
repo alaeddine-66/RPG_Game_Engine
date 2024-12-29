@@ -17,7 +17,7 @@ public class HealthBarComponent extends AbstractHUDComponents {
     public HealthBarComponent(SpriteBatch batch, OrthographicCamera camera, HUDDataProvider dataProvider) {
         super(batch, camera, dataProvider);
         this.shapeRenderer = new ShapeRenderer();
-        this.heartTexture = new Texture("bg/heart.png");
+        this.heartTexture = new Texture("concreate_game/src/assets/bg/heart.png");
     }
 
     @Override

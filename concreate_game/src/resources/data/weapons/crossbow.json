@@ -1,7 +1,7 @@
 {
   "name": "Basic Crossbow",
   "type": "Crossbow",
-  "path": "assets/sprite/gin_02.png",
+  "path": "concreate_game/src/assets/sprite/gin_02.png",
   "projectile": "Bullet",
   "damage": 15,
   "fireRate": 0.8,

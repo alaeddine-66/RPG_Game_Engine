@@ -1,8 +1,8 @@
 {
   "id": "Necromancer",
-  "idlePath": "assets/sprite/necromancer.png",
-  "movePath": "assets/sprite/necromancer.png",
-  "attackPath": "assets/sprite/necromancer.png",
+  "idlePath": "concreate_game/src/assets/sprite/necromancer.png",
+  "movePath": "concreate_game/src/assets/sprite/necromancer.png",
+  "attackPath": "concreate_game/src/assets/sprite/necromancer.png",
   "width": 32,
   "height": 32,
   "damage": 40,
