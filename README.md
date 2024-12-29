@@ -1,4 +1,4 @@
-# TestJava2
+# Projet de Moteur de Jeu en Java avec libGDX
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
