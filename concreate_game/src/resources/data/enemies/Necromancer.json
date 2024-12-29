@@ -1,0 +1,19 @@
+{
+  "id": "Necromancer",
+  "idlePath": "assets/sprite/necromancer.png",
+  "movePath": "assets/sprite/necromancer.png",
+  "attackPath": "assets/sprite/necromancer.png",
+  "width": 32,
+  "height": 32,
+  "damage": 40,
+  "maxHp": 300,
+  "speed": 50,
+  "drops": {
+    "coin": 20,
+    "exp": 10
+  },
+  "extra":{
+     "MaxMinions": 6,
+     "SummonCooldown" : 30
+  }
+}

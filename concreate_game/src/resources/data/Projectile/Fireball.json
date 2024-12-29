@@ -1,0 +1,7 @@
+{
+  "type": "FireBall",
+  "path": "assets/sprite/FireBall.png",
+  "width": 35,
+  "height": 35,
+  "speed": 300
+}

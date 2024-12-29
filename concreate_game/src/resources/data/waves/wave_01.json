@@ -1,0 +1,26 @@
+{
+  "waveNumber": 1,
+  "enemies": [
+    {
+      "id": "Normal",
+      "quantity": 4,
+      "delayAfterSpawn": 3000
+    },
+    {
+      "id": "Magician",
+      "quantity": 2,
+      "delayAfterSpawn": 1500
+    },
+    {
+      "id": "Normal",
+      "quantity": 4,
+      "delayAfterSpawn": 1000
+    },
+    {
+      "id": "Necromancer",
+      "quantity": 1,
+      "delayAfterSpawn": 1500
+    }
+  ]
+}
+

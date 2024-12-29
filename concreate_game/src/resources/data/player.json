@@ -1,0 +1,23 @@
+{
+  "id": "Hero",
+  "startPosition": {
+    "x": 50 ,
+    "y":50
+  },
+  "width": 32,
+  "height": 32,
+  "images": {
+    "idle_g": "assets/sprite/main-perso-g.png",
+    "idle_d": "assets/sprite/main-perso-d.png"
+  },
+  "StartWeapon": "Gun",
+  "Strength": 10,
+  "speed": 100,
+  "maxHp": 100,
+  "maxExp": 1,
+  "maxMp": 10,
+  "PLAYER_MIN_HP_INCREASE": 9 ,
+  "PLAYER_MAX_HP_INCREASE" : 17,
+  "PLAYER_MIN_DMG_INCREASE" : 1,
+  "PLAYER_MAX_DMG_INCREASE" : 10
+}

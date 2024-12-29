@@ -1,0 +1,15 @@
+{
+  "name": "Pistol",
+  "type": "Gun",
+  "path": "assets/sprite/gin_02.png",
+  "projectile": "Bullet",
+  "projectileBehavior": "default",
+  "damage": 10,
+  "fireRate": 50.0,
+  "magazineCapacity": 10,
+  "reloadTime": 10,
+  "fireBehavior": "SingleShotFireBehavior",
+  "effectBehavior": "CooldownEffect",
+  "extra": {
+  }
+}

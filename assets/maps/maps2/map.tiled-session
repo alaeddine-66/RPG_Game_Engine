@@ -1,0 +1,39 @@
+{
+    "activeFile": "map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "/Users/aladdinbensalah/Downloads/car.tsx": {
+            "scaleInDock": 1
+        },
+        "base.tsx": {
+            "scaleInDock": 0.5095,
+            "scaleInEditor": 1
+        },
+        "crimson.tsx": {
+            "scaleInDock": 0.3239
+        },
+        "map.tmx": {
+            "scale": 0.44,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 586.3636363636364,
+                "y": 651.1363636363637
+            }
+        }
+    },
+    "last.worldFilePath": "/Users/aladdinbensalah/project_JAVA/RPG_Game/assets/maps",
+    "loadedWorlds": [
+        "/Users/aladdinbensalah/project_JAVA/RPG_Game/assets/maps/test.world"
+    ],
+    "openFiles": [
+        "map.tmx",
+        "base.tsx"
+    ],
+    "project": "map.tiled-project",
+    "recentFiles": [
+        "base.tsx",
+        "map.tmx"
+    ]
+}

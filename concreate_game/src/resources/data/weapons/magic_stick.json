@@ -1,0 +1,15 @@
+{
+  "name": "Magic Stick",
+  "type": "Magic",
+  "path": "assets/sprite/gin_02.png",
+  "projectile": "FireBall",
+  "damage": 20,
+  "fireRate": 0.5,
+  "magazineCapacity": 10,
+  "reloadTime": 10,
+  "fireBehavior": "SingleShotFireBehavior",
+  "effectBehavior": "CooldownEffect",
+  "extra": {
+    "cooldownThreshold": 10
+  }
+}

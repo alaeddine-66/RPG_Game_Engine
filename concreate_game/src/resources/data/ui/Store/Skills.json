@@ -1,0 +1,11 @@
+{
+  "Orb of seeing": {
+    "name": "Orb of Seeing",
+    "category": "Skill",
+    "value": 300,
+    "description": "Un orbe magique qui révèle les ennemis cachés pendant une courte durée.",
+    "effect": {
+      "small_map": true
+    }
+  }
+}

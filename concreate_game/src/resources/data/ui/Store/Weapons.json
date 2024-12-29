@@ -1,0 +1,30 @@
+{
+  "crossbow": {
+    "category": "Weapons",
+    "value": 300,
+    "description": "Une arbalète légère qui inflige des dégâts modérés à distance.",
+    "effect": {
+      "damage": 15,
+      "range": 20
+    }
+  },
+  "gun": {
+    "category": "Weapons",
+    "value": 2000,
+    "description": "Une arme à feu qui inflige des dégâts importants avec une cadence de tir rapide.",
+    "effect": {
+      "damage": 30,
+      "range": 25,
+      "fire_rate": 0.5
+    }
+},
+  "magic stick": {
+    "category": "Weapons",
+    "value": 5000,
+    "description": "Un bâton magique qui libère des projectiles puissants.",
+    "effect": {
+      "damage": 50,
+      "mana_cost": 20
+    }
+  }
+}
