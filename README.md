@@ -1,6 +1,6 @@
 # Projet de Moteur de Jeu en Java avec libGDX
 
-##Description
+## Description
 
 Ce projet est un moteur de jeu extensible écrit en Java, utilisant la bibliothèque libGDX. Il est structuré pour permettre aux utilisateurs de créer facilement des jeux multiplateformes. Le projet inclut une application de démarrage simple.
 
@@ -15,7 +15,7 @@ Avant de compiler et d'exécuter le projet, assurez-vous d'avoir :
   Java Development Kit (JDK) version 17 ou supérieure.
   Gradle (ou utilisez le wrapper inclus gradlew).
 
-##Structure du Projet
+## Structure du Projet
 ├── core                # Code source du moteur de jeu
 ├── lwjgl3              # Code source pour la plateforme de bureau
 ├── concreate_game      # Exemple de jeu utilisant le moteur
@@ -45,15 +45,15 @@ Tâches Utiles
 - `lwjgl3:run` : Démarre l'application sur la plateforme de bureau.
 - `test`: runs unit tests (if any).
 
-##Instructions d'Exécution
+## Instructions d'Exécution
 
-###Étape 1 : Cloner le Dépôt
+### Étape 1 : Cloner le Dépôt
 
 Clonez ce projet dans votre répertoire local :
 `git clone <url-du-dépôt>
 cd TestJava2`
 
-###Étape 2 : Compiler le Projet
+### Étape 2 : Compiler le Projet
 
 Utilisez Gradle pour compiler le projet.
 
@@ -66,7 +66,7 @@ Sur Windows :
 Avec une installation locale de Gradle :
 `gradle build`
 
-###Étape 3 : Exécuter un Jeu Exemple
+### Étape 3 : Exécuter un Jeu Exemple
 
 Un jeu exemple est inclus dans le dossier concreate_game. Vous pouvez le lancer directement pour voir le moteur en action.
 
@@ -113,7 +113,7 @@ if not exist "build" (
 :: Exécuter le jeu
 gradlew.bat lwjgl3:run
 
-##Licence
+## Licence
 
 Ce projet est sous licence MIT. Veuillez consulter le fichier LICENSE pour plus de détails.
 
