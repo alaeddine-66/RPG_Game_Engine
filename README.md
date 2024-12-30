@@ -57,26 +57,7 @@ git clone <url-du-dépôt>
 cd TestJava2
 ```
 
-### Étape 2 : Compiler le Projet
-
-Utilisez Gradle pour compiler le projet.
-
-Avec le wrapper Gradle :
-
-Sur Linux/Mac :
-```
-./gradlew build
-```
-Sur Windows :
-```
-gradlew.bat build
-```
-Avec une installation locale de Gradle :
-```
-gradle build
-```
-
-### Étape 3 : Exécuter un Jeu Exemple
+### Étape 2 : Exécuter un Jeu Exemple
 
 Un jeu exemple est inclus dans le dossier concreate_game. Vous pouvez le lancer directement pour voir le moteur en action.
 
