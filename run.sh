@@ -1,4 +1,10 @@
 #!/bin/bash
 
-# Compile et exécute le projet en utilisant Gradle et LWJGL3
-./gradlew :lwjgl3:run
+# Compiler si nécessaire
+if [ ! -d "build" ]; then
+  echo "Compilation en cours..."
+  ./gradlew build
+fi
+
+# Exécuter le jeu
+./gradlew lwjgl3:run
