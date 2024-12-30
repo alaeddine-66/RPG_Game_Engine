@@ -101,35 +101,6 @@ gradlew.bat lwjgl3:run
 
 Pour créer votre propre jeu, ajoutez vos fichiers au dossier concreate_game en suivant l'exemple fourni.
 
-##Détails du Script d'Exécution
-
-Script Linux/Mac (run.sh)
-```
-#!/bin/bash
-
-# Compiler si nécessaire
-if [ ! -d "build" ]; then
-  echo "Compilation en cours..."
-  ./gradlew build
-fi
-
-# Exécuter le jeu
-./gradlew lwjgl3:run
-```
-
-Script Windows (run.bat)
-```
-@echo off
-
-:: Compiler si nécessaire
-if not exist "build" (
-  echo Compilation en cours...
-  gradlew.bat build
-)
-:: Exécuter le jeu
-gradlew.bat lwjgl3:run
-```
-
 ## Licence
 
 Ce projet est sous licence MIT. Veuillez consulter le fichier LICENSE pour plus de détails.
