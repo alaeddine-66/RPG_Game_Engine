@@ -29,10 +29,6 @@ Avant de compiler et d'exécuter le projet, assurez-vous d'avoir :
 
 ## Gradle
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
-
 Le projet utilise Gradle pour gérer les dépendances. Le wrapper Gradle est inclus, ce qui permet d'exécuter les tâches Gradle avec les commandes gradlew.bat ou ./gradlew.
 
 Tâches Utiles
@@ -53,8 +49,8 @@ Tâches Utiles
 
 Clonez ce projet dans votre répertoire local :
 ```
-git clone <url-du-dépôt>
-cd TestJava2
+git clone https://github.com/alaeddine-66/RPG_Game_Engine.git
+cd RPG_Game_Engine
 ```
 
 ### Étape 2 : Exécuter un Jeu Exemple
