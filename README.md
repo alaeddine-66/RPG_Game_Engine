@@ -65,16 +65,6 @@ Sur Windows :
 ```
 run.bat
 ```
-Ou utilisez directement Gradle :
-
-Sur Linux/Mac :
-```
-./gradlew lwjgl3:run
-```
-Sur Windows :
-```
-gradlew.bat lwjgl3:run
-```
 
 Pour créer votre propre jeu, ajoutez vos fichiers au dossier concreate_game en suivant l'exemple fourni.
 
