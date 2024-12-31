@@ -107,4 +107,5 @@ public class HealthComponent implements IComponent, ILevelUpComponent, Observer 
             hp = 0;
         }
     }
+
 }

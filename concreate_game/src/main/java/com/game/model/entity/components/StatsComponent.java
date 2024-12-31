@@ -31,10 +31,7 @@ public class StatsComponent implements IComponent, ILevelUpComponent, Observer {
 
     @Override
     public void update(Event event) {
-        if (event instanceof LevelUpEvent) {
-            LevelUpEvent levelUpEvent = (LevelUpEvent) event;
-            onLevelUp(levelUpEvent.getRemainingExp());
-        }
+        event.handle(this);
     }
 
     public int getStatPoints(){

@@ -16,11 +16,12 @@ import java.util.List;
 
 /**
  * La classe <code>Menu</code> gère l'affichage de l'interface principale du jeu,
- * qui inclut un système de navigation entre différentes sections (Store, Stats, Inventory).
+ * incluant un système de navigation entre différentes sections (Store, Stats, Inventory).
  * Elle contient des méthodes pour gérer l'affichage du HUD, de la barre de boutons de navigation,
  * ainsi que de l'arrière-plan noir qui apparaît lorsque le HUD est visible.
  */
 public class Menu {
+
     private Stage stage;
     private Skin skin;
 
@@ -32,14 +33,14 @@ public class Menu {
     private boolean hudVisible = false;
     private List<IMenuSection> sections;
 
-
     /**
      * Constructeur de la classe <code>Menu</code>.
      *
      * @param stage Le stage sur lequel l'interface sera affichée.
      * @param skin La peau (style) utilisée pour les éléments de l'interface.
+     * @param userSections Liste des sections de menu à afficher.
      */
-    public Menu(Stage stage, Skin skin , List<IMenuSection> userSections) {
+    public Menu(Stage stage, Skin skin, List<IMenuSection> userSections) {
         this.stage = stage;
         this.skin = skin;
         this.sections = userSections;
@@ -55,7 +56,7 @@ public class Menu {
      * Méthode de mise à jour de l'interface. Elle met à jour les sections du menu (Store, Stats, Inventory).
      */
     public void update() {
-        for(IMenuSection section : sections){
+        for (IMenuSection section : sections) {
             section.update();
         }
     }
@@ -89,7 +90,6 @@ public class Menu {
      * Crée la barre de boutons permettant de changer entre les sections du menu.
      * Chaque bouton permet d'afficher une section différente (Store, Stats, Inventory).
      */
-
     private void createButtonBar() {
         buttonBar = new Table();
         for (IMenuSection section : sections) {
@@ -107,8 +107,8 @@ public class Menu {
      * Crée les sections du menu : Store, Stats et Inventory.
      * Chaque section est ajoutée au conteneur <code>contentStack</code>.
      */
-    private void createContentSections(){
-        for(IMenuSection section : sections ){
+    private void createContentSections() {
+        for (IMenuSection section : sections) {
             contentStack.add(section.getTable());
         }
         showSection(sections.get(0).getTable());
@@ -166,5 +166,4 @@ public class Menu {
     public boolean isHudVisible() {
         return hudVisible;
     }
-
 }

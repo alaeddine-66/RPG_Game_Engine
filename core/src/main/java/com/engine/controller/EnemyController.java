@@ -2,6 +2,7 @@ package com.engine.controller;
 
 import com.engine.model.collectible.DroppedItemManager;
 import com.engine.model.entity.IAttackable;
+import com.engine.model.entity.components.HealthComponent;
 import com.engine.model.entity.enemy.model.Enemy;
 import com.engine.model.entity.enemy.model.Hasminions;
 
@@ -26,7 +27,7 @@ public class EnemyController {
             addEnnemies(enemy, newEnemies);
 
             // Vérifie si l'ennemi est mort et le retire de la liste si c'est le cas
-            if (enemy.getHealthComponent().isDead()) {
+            if (enemy.getComponent(HealthComponent.class).isDead()) {
                 dropsManager.dropItemsFromEnemy(enemy.getPosition(),enemy.getData().getDrops());
                 it.remove(); // Retirer l'ennemi de la liste
                 //enemy.onEnemyDeath(player); // Gérer la mort de l'ennemi (par exemple, en informant le joueur)

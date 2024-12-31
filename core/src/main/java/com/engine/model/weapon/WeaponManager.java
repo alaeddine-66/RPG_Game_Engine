@@ -4,7 +4,6 @@ import com.engine.model.data.WeaponData;
 import com.engine.model.projectile.ProjectileBehavior.DefaultProjectileBehavior;
 import com.engine.model.projectile.ProjectileBehavior.IProjectileBehavior;
 import com.engine.model.resource.DataManager;
-import com.engine.model.projectile.effect.CooldownEffect;
 import com.engine.model.projectile.effect.IEffectBehavior;
 import com.engine.model.weapon.fire.IFireBehavior;
 import com.engine.model.weapon.fire.MultiShotFireBehavior;
@@ -42,16 +41,13 @@ public class WeaponManager {
         IEffectBehavior effectBehavior = createEffectBehavior(data.get(type));
         IProjectileBehavior projectileBehavior = createProjectileBehavior(data.get(type));
 
-        if (fireBehavior != null && effectBehavior != null) {
-            return DataManager.getInstance().getWeaponFactory(type)
-                .withFireBehavior(fireBehavior)
-                .withEffectBehavior(effectBehavior)
-                .withProjectileBehavior(projectileBehavior)
-                .withWeaponData(data.get(type))
-                .build();  // Exemple avec Gun
-        } else {
-            throw new IllegalArgumentException("Invalid weapon data, fire or effect behavior is missing or invalid.");
-        }
+        return DataManager.getInstance().getWeaponFactory(type)
+            .withFireBehavior(fireBehavior)
+            .withEffectBehavior(effectBehavior)
+            .withProjectileBehavior(projectileBehavior)
+            .withWeaponData(data.get(type))
+            .build();  // Exemple avec Gun
+
     }
 
     /**
@@ -90,9 +86,7 @@ public class WeaponManager {
 
         switch (data.getEffectBehavior()) {
             case "CooldownEffect":
-                return new CooldownEffect(
-                    data.getExtra().getOrDefault("cooldownThreshold", 1)
-                );
+                return null;
 
             default:
                 throw new IllegalArgumentException("Unknown EffectBehavior type: " + data.getEffectBehavior());

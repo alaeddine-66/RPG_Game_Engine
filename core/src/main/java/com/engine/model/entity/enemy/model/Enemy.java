@@ -23,8 +23,6 @@ public abstract class Enemy extends Entity implements IAttackable , IAttacker {
     protected Vector2 direction ;
     private final EnemyData data;
     protected Vector2 nextPosition ;
-    protected HealthComponent health ;
-    protected StrengthComponent strengthComponent;
 
     public Enemy(Vector2 position ,  IMapCollisionChecker collisionManager ,  EnemyData data) {
         super(data.getId() ,position, new Vector2 (data.getWidth() , data.getHeight() ));
@@ -33,8 +31,8 @@ public abstract class Enemy extends Entity implements IAttackable , IAttacker {
         this.data = data ;
         this.nextPosition = new Vector2();
         this.speed = data.getSpeed();
-        this.health = new HealthComponent(data.getmaxHp());
-        this.strengthComponent = new StrengthComponent(data.getDamage());
+        addComponent(new HealthComponent(data.getmaxHp()));
+        addComponent(new StrengthComponent(data.getDamage()));
     }
 
     /**
@@ -87,11 +85,11 @@ public abstract class Enemy extends Entity implements IAttackable , IAttacker {
 
     @Override
     public HealthComponent getHealthComponent() {
-        return health;
+        return getComponent(HealthComponent.class);
     }
 
     @Override
     public StrengthComponent getStrengthComponent(){
-        return strengthComponent ;
+        return getComponent(StrengthComponent.class) ;
     }
 }
