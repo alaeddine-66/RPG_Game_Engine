@@ -1,33 +1,34 @@
-package com.engine.controller ;
+package com.engine.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
+import java.util.HashMap;
+import java.util.Map;
 
-public class LibGdxInputHandler implements IInputHandler {
+public class LibGdxInputHandler implements IInputHandler{
 
-    @Override
-    public boolean isMoveLeft() {
-        return Gdx.input.isKeyPressed(Input.Keys.LEFT);
+    private final Map<String, Integer> actionKeyMap = new HashMap<>();
+
+    // Associer une action à une touche via son nom
+    public void bindAction(String action, String keyName) {
+        int keyCode = Input.Keys.valueOf(keyName);
+        if (keyCode == -1) {
+            throw new IllegalArgumentException("Key name '" + keyName + "' is not valid.");
+        }
+        actionKeyMap.put(action, keyCode);
     }
 
     @Override
-    public boolean isMoveRight() {
-        return Gdx.input.isKeyPressed(Input.Keys.RIGHT);
+    public boolean isKeyPressed(String action) {
+        Integer key = actionKeyMap.get(action);
+        return key != null && Gdx.input.isKeyPressed(key);
     }
 
     @Override
-    public boolean isMoveUp() {
-        return Gdx.input.isKeyPressed(Input.Keys.UP);
+    public boolean isKeyJustPressed(String action) {
+        Integer key = actionKeyMap.get(action);
+        return key != null && Gdx.input.isKeyJustPressed(key);
     }
 
-    @Override
-    public boolean isMoveDown() {
-        return Gdx.input.isKeyPressed(Input.Keys.DOWN);
-    }
-
-    @Override
-    public boolean isShooting() {
-        return Gdx.input.isKeyPressed(Input.Keys.SPACE);
-    }
 }

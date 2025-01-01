@@ -33,7 +33,7 @@ public class DataManager {
         enemyFactory = new HashMap<>();
         weaponFactory = new HashMap<>();
         itemsBuilderMap = new HashMap<>();
-        this.itemsData = new HashMap<>();
+        itemsData = new HashMap<>();
 
     }
 

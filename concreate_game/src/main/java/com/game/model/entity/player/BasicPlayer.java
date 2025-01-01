@@ -19,10 +19,10 @@ public class BasicPlayer extends Player {
     public void move(float dt) {
         // Gestion des mouvements spécifiques au joueur basic
         float moveX = 0, moveY = 0;
-        if (inputHandler.isMoveLeft()) moveX = -1;
-        else if (inputHandler.isMoveRight()) moveX = 1;
-        if (inputHandler.isMoveUp()) moveY = 1;
-        else if (inputHandler.isMoveDown()) moveY = -1;
+        if (inputHandler.isKeyPressed("left")) moveX = -1;
+        else if (inputHandler.isKeyPressed("right")) moveX = 1;
+        if (inputHandler.isKeyPressed("up")) moveY = 1;
+        else if (inputHandler.isKeyPressed("down")) moveY = -1;
 
         if (moveX==1) facingRight = true;
         else if(moveX==-1) facingRight = false;
@@ -34,6 +34,6 @@ public class BasicPlayer extends Player {
     @Override
     public void attack(List<IAttackable> targets) {
         // Gestion spécifique des attaques pour le joueur humain
-        combat.handleAttack(inputHandler.isShooting());
+        combat.handleAttack(inputHandler.isKeyPressed("shoot"));
     }
 }

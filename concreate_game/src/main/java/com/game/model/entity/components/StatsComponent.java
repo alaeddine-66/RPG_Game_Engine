@@ -5,7 +5,6 @@ import com.engine.model.ObserverPattern.Observer;
 import com.engine.model.data.PlayerData;
 import com.engine.model.entity.components.IComponent;
 import com.engine.model.entity.components.ILevelUpComponent;
-import com.engine.model.entity.components.LevelUpEvent;
 
 public class StatsComponent implements IComponent, ILevelUpComponent, Observer {
     private int mp, maxMp, fatigue, luck , statPoints;

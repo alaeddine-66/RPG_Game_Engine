@@ -7,9 +7,11 @@ import com.engine.model.entity.IAttackable;
 import com.engine.model.entity.enemy.factory.AbstractEnemyBuilder;
 import com.engine.model.data.EnemyData;
 import com.engine.model.entity.enemy.model.Hasminions;
+import com.engine.model.map.IMapCollisionChecker;
 import com.engine.model.pathFinder.SteeringBehaviorStrategy;
 import com.engine.model.resource.DataManager;
 import com.engine.model.entity.enemy.model.Enemy;
+import com.game.model.entity.enemy.factory.BatFactory;
 
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.List;
 public class Necromancer extends Enemy implements Hasminions {
 
     private final List<Enemy> Minions;
-    private final AbstractEnemyBuilder enemyFactory ;
+    private final BatFactory batFactory ;
     private final int SummonCooldown ;
     private final int MaxMinions;
     private final List<Enemy> activeMinions = new ArrayList<>(); // Liste des minions actifs
@@ -27,10 +29,10 @@ public class Necromancer extends Enemy implements Hasminions {
     private float delay = 0;
 
 
-    public Necromancer(Vector2 position, com.engine.model.map.IMapCollisionChecker collisionManager, EnemyData data) {
+    public Necromancer(Vector2 position, IMapCollisionChecker collisionManager, EnemyData data) {
         super(position, collisionManager, data);
         this.Minions = new ArrayList<>();
-        this.enemyFactory = DataManager.getInstance().getEnemyFactory("Bat");
+        this.batFactory = new BatFactory();
         this.SummonCooldown = data.getExtra().get("SummonCooldown");
         this.MaxMinions = data.getExtra().get("MaxMinions");
         SetMoveStrategy(new SteeringBehaviorStrategy(collisionManager));
@@ -121,7 +123,7 @@ public class Necromancer extends Enemy implements Hasminions {
         for (int i = 0; i < count; i++) {
             Vector2 spawnPosition = generateSpawnPosition();
 
-            minions.add(enemyFactory
+            minions.add(batFactory
                 .withData((DataManager.getInstance().getEnemyData("Bat")))
                 .withPosition(spawnPosition)
                 .withCollisionChecker(collisionManager)

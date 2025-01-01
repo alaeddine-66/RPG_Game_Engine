@@ -20,12 +20,16 @@ public class WaveManager {
     private final Queue<SpawnTask> spawnQueue;
     private float elapsedTime;
     private int waveNumber = 0;
+    private HashMap<String, EnemyData> enemyData;
+    private EnemyManager enemyManager;
 
-    public WaveManager() {
+    public WaveManager(HashMap<String, EnemyData> enemyData , EnemyManager enemyManager) {
         json = new Json();
         spawnedEnemies = new ArrayList<>();
         spawnQueue = new LinkedList<>();
         elapsedTime = 0;
+        this.enemyData = enemyData;
+        this.enemyManager = enemyManager;
     }
 
     public void loadWave(String directoryPath) {
@@ -59,7 +63,7 @@ public class WaveManager {
         }
     }
 
-    public void update(float delta,  HashMap<String, EnemyData> data , EnemyManager enemyManager) {
+    public void update(float delta) {
         elapsedTime += delta;
 
         // Gestion des spawns pour la vague actuelle
@@ -67,7 +71,7 @@ public class WaveManager {
             SpawnTask task = spawnQueue.poll();
             List<Enemy> enemies = enemyManager.generateEnemies(
                 task.getEnemyGroup().getQuantity(),
-                data.get(task.getEnemyGroup().getId())
+                enemyData.get(task.getEnemyGroup().getId())
             );
             spawnedEnemies.addAll(enemies);
         }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.Input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,6 +169,12 @@ public class Main extends ApplicationAdapter {
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 600, 400);
         inputHandler = new LibGdxInputHandler();
+        inputHandler.bindAction("right" , "Right");
+        inputHandler.bindAction("left" , "Left");
+        inputHandler.bindAction("up" , "Up");
+        inputHandler.bindAction("down" , "Down");
+        inputHandler.bindAction("shoot" , "Space");
+        inputHandler.bindAction("inventory" , "I");
 
 
         batch = new SpriteBatch();
@@ -220,7 +225,7 @@ public class Main extends ApplicationAdapter {
         SpawnPositionStrategy spawnStrategy = new BorderSpawnStrategy(collisionManager);
         enemyManager = new EnemyManager(collisionManager,spawnStrategy);
 
-        waveManager = new WaveManager();
+        waveManager = new WaveManager(enemytype , enemyManager);
         waveManager.loadWave("concreate_game/src/resources/data/waves");
 
         enemyRenderer = new EnemyView(waveManager.getEnemies() ,rm , batch );
@@ -256,7 +261,7 @@ public class Main extends ApplicationAdapter {
 
     public void update(float dt){
         gameController.update(dt);
-        waveManager.update(dt,  enemytype , enemyManager);
+        waveManager.update(dt);
         enemyController.updateEnemies(waveManager.getEnemies() , new ArrayList<IAttackable>(heros) , dt);
         Mainplayer.update(new ArrayList<IAttackable>(waveManager.getEnemies()),dt);
         // Conversion  de List<Enemy> en List<Attackable>
@@ -273,7 +278,7 @@ public class Main extends ApplicationAdapter {
         stage.act(deltaTime);
         stage.draw();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.I) && !waveEndScreen.isVisible() && !levelUpPopup.levelUpWindowOpened()) {
+        if ( inputHandler.isKeyJustPressed("inventory") && !waveEndScreen.isVisible() && !levelUpPopup.levelUpWindowOpened()) {
             menu.toggleHUD();
         }
         if (waveManager.isWaveCompleted() && !waveEndScreen.isVisible()) {
@@ -303,5 +308,6 @@ public class Main extends ApplicationAdapter {
     public void dispose () {
         batch.dispose();
         playerView.dispose();
+        enemyRenderer.dispose();
     }
 }
