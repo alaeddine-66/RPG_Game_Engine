@@ -18,6 +18,7 @@ import com.engine.controller.IInputHandler;
 import com.engine.controller.LibGdxInputHandler;
 import com.engine.model.collectible.DroppedItemManager;
 import com.engine.model.ObserverPattern.Observer;
+import com.engine.model.map.MapManager;
 import com.engine.model.resource.*;
 import com.game.model.collectible.factory.CoinFactory;
 import com.game.model.collectible.factory.ExperienceFactory;
@@ -31,7 +32,6 @@ import com.engine.model.entity.player.IMovement;
 import com.engine.model.map.CollisionManager;
 import com.engine.model.weapon.WeaponManager;
 import com.engine.model.weapon.upgrade.UpgradeManager;
-import com.engine.model.map.MapLoader;
 import com.engine.model.map.IMapCollisionChecker;
 import com.engine.model.entity.player.Player;
 import com.engine.model.data.PlayerData;
@@ -75,7 +75,7 @@ public class Main extends ApplicationAdapter {
     private Player Mainplayer;
     private EnemyManager enemyManager;
     private HashMap<String,EnemyData> enemytype;
-    private MapLoader gameMap;
+    private MapManager gameMap;
     private IMapCollisionChecker collisionManager;
     private WaveManager waveManager;
     private AbstractWeapon weapon;
@@ -179,8 +179,8 @@ public class Main extends ApplicationAdapter {
 
         batch = new SpriteBatch();
 
-        gameMap = new MapLoader("concreate_game/src/assets/maps/maps2/map.tmx"); // Charger une carte
-        collisionManager = new CollisionManager(gameMap);
+        gameMap = new MapManager("concreate_game/src/assets/maps/map1/map.tmx"); // Charger une carte
+        collisionManager = new CollisionManager(gameMap.getCurrentMapLoader());
 
 
         // Load player and Weapon data
@@ -235,7 +235,7 @@ public class Main extends ApplicationAdapter {
         projectileView = new ProjectileView(rm ,batch, weapon.getProjectiles());
 
         // Créer le contrôleur
-        gameController = new GameController(Mainplayer , cam );
+        gameController = new GameController(Mainplayer , cam , collisionManager );
 
         List<IMenuSection> sections = new ArrayList<>();
         sections.add(new InventoryUI(Mainplayer, skin));
@@ -244,7 +244,7 @@ public class Main extends ApplicationAdapter {
 
         menu = new Menu(stage, skin , sections);
 
-        mapRenderer = new MapRenderer(gameMap.getMap() , cam );
+        mapRenderer = new MapRenderer(gameMap.getCurrentMapLoader().getMap() , cam );
         waveEndScreen = new WaveEndScreen(stage, skin , waveManager , menu);
 
         levelUpPopup = new LevelUpScreen(stage, skin, upgradeManager );
@@ -260,7 +260,7 @@ public class Main extends ApplicationAdapter {
     }
 
     public void update(float dt){
-        gameController.update(dt);
+        gameController.update();
         waveManager.update(dt);
         enemyController.updateEnemies(waveManager.getEnemies() , new ArrayList<IAttackable>(heros) , dt);
         Mainplayer.update(new ArrayList<IAttackable>(waveManager.getEnemies()),dt);
@@ -281,6 +281,7 @@ public class Main extends ApplicationAdapter {
         if ( inputHandler.isKeyJustPressed("inventory") && !waveEndScreen.isVisible() && !levelUpPopup.levelUpWindowOpened()) {
             menu.toggleHUD();
         }
+
         if (waveManager.isWaveCompleted() && !waveEndScreen.isVisible()) {
             waveEndScreen.update();
             waveEndScreen.toggleVisibility();
@@ -288,7 +289,7 @@ public class Main extends ApplicationAdapter {
 
         if (Mainplayer.getComponent(ExperienceComponent.class).hasLeveledUp()) {
             levelUpPopup.showLevelUpWindow(Mainplayer.getWeapon());
-            Mainplayer.getComponent(ExperienceComponent.class).resetLevelUpFlag(); // Si nécessaire
+            Mainplayer.getComponent(ExperienceComponent.class).resetLevelUpFlag();
         }
 
         if (!menu.isHudVisible() && !waveEndScreen.isVisible() && !levelUpPopup.levelUpWindowOpened()) {
@@ -309,5 +310,6 @@ public class Main extends ApplicationAdapter {
         batch.dispose();
         playerView.dispose();
         enemyRenderer.dispose();
+        mapRenderer.dispose();
     }
 }

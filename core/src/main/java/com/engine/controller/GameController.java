@@ -6,16 +6,20 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.engine.model.entity.player.Player;
+import com.engine.model.map.IMapCollisionChecker;
+import com.engine.model.map.MapLoader;
 
 public class GameController {
 
     final Player player;
     private OrthographicCamera cam;
+    private IMapCollisionChecker collisionManager;
     private Vector3 mouseWorldPosition = new Vector3();  // Utiliser un Vector3 pour la position de la souris
 
-    public GameController(Player player , OrthographicCamera cam ) {
+    public GameController(Player player , OrthographicCamera cam , IMapCollisionChecker collisionManager) {
         this.player = player;
         this.cam = cam;
+        this.collisionManager = collisionManager;
     }
 
     private void updatePlayerRotation() {
@@ -34,7 +38,7 @@ public class GameController {
         player.setRotationAngle(angle);
     }
 
-    public void update(float dt) {
+    public void update() {
         updateCamera();
         updatePlayerRotation(); // Met à jour la rotation du joueur vers la souris
 
@@ -42,14 +46,13 @@ public class GameController {
 
     public void updateCamera() {
         // Largeur et hauteur de la carte en pixels
-        int mapWidth = 40 * 32;
-        int mapHeight = 40 * 32;
+
 
         // Définition des marges
         float marginLeft = cam.viewportWidth/2; // Bord gauche
-        float marginRight = mapWidth - cam.viewportWidth/2; // Bord droit
+        float marginRight = collisionManager.getMapWidth() - cam.viewportWidth/2; // Bord droit
         float marginBottom = cam.viewportHeight/2; // Bord inférieur
-        float marginTop = mapHeight - cam.viewportHeight/2; // Bord supérieur
+        float marginTop = collisionManager.getMapHeight() - cam.viewportHeight/2; // Bord supérieur
 
         // Suivre le joueur dans les limites
         float playerX = player.getPosition().x;

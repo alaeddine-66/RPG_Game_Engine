@@ -14,20 +14,20 @@ public class CollisionManager implements IMapCollisionChecker{
     private final MapLoader gameMap;
 
     public CollisionManager(MapLoader gameMap) {
-        this.collisionObjects = gameMap.getCollisionObjects();
-        this.mapWidth = gameMap.getCol() * gameMap.getTileWidth();
-        this.mapHeight = gameMap.getRow() * gameMap.getTileHeight();
+        this.collisionObjects = gameMap.getObjectLayerManager().getCollisionObjects();
+        this.mapWidth = gameMap.getTileLayerManager().getCol() * gameMap.getTileLayerManager().getTileWidth();
+        this.mapHeight = gameMap.getTileLayerManager().getRow() * gameMap.getTileLayerManager().getTileHeight();
         this.gameMap = gameMap;
     }
 
     @Override
     public int getTileWidth() {
-        return gameMap.getCol();
+        return gameMap.getTileLayerManager().getCol();
     }
 
     @Override
     public int getTileHeight() {
-        return gameMap.getRow();
+        return gameMap.getTileLayerManager().getRow();
     }
 
     @Override

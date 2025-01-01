@@ -56,24 +56,6 @@ configure(subprojects) {
     options.incremental = true
   }
 
-  /**
-     * Configuration pour la génération de Javadoc
-     */
-    task generateJavadoc(type: Javadoc) {
-        source = sourceSets.main.allJava // Définit les fichiers sources à documenter
-        classpath = sourceSets.main.compileClasspath // Spécifie le classpath nécessaire pour Javadoc
-        destinationDir = file("$buildDir/docs/javadoc") // Dossier de destination pour les fichiers Javadoc générés
-
-        options {
-            author true  // Inclut l'information sur l'auteur
-            version true // Inclut la version du projet dans la Javadoc
-            links "https://docs.oracle.com/javase/17/docs/api/" // Lien vers la documentation Java standard
-        }
-    }
-
-    // Faire en sorte que le task generateJavadoc soit exécuté après compileJava
-    compileJava.finalizedBy(generateJavadoc)
-
 }
 
 subprojects {

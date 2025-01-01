@@ -43,5 +43,9 @@ public class MapRenderer {
         mapRenderer.setView(cam); // Met à jour la vue avec la caméra
         mapRenderer.render(); // Effectue le rendu de la carte
     }
+
+    public void dispose() {
+        mapRenderer.dispose();
+    }
 }
 
