@@ -19,7 +19,6 @@ public class DataManager {
     private final HashMap<String, EnemyData> enemyDataMap;
     private final Map<String, ProjectileData> projectileMap;
     private final Map<String , IProjectileFactory> projectilefactory;
-    private final Map<String , AbstractEnemyBuilder> enemyFactory;
     private final HashMap<String, WeaponData> weaponDataMap;
     private final Map<String, AbstractWeaponBuilder> weaponFactory;
     private final Map<String, ItemData> itemsData;
@@ -30,7 +29,6 @@ public class DataManager {
         projectileMap = new HashMap<>();
         projectilefactory = new HashMap<>();
         weaponDataMap = new HashMap<>();
-        enemyFactory = new HashMap<>();
         weaponFactory = new HashMap<>();
         itemsBuilderMap = new HashMap<>();
         itemsData = new HashMap<>();
@@ -55,18 +53,6 @@ public class DataManager {
 
     public EnemyData getEnemyData(String type) {
         return enemyDataMap.get(type);
-    }
-
-    public HashMap<String, EnemyData> getAllEnemyData() {
-        return enemyDataMap;
-    }
-
-    public void loadEnemyFactory(String type,AbstractEnemyBuilder factory){
-        enemyFactory.put(type , factory);
-    }
-
-    public AbstractEnemyBuilder getEnemyFactory(String type){
-        return enemyFactory.get(type);
     }
 
     //Projectile

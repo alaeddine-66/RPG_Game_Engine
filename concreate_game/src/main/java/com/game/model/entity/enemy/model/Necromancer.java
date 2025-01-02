@@ -32,7 +32,7 @@ public class Necromancer extends Enemy implements Hasminions {
     public Necromancer(Vector2 position, IMapCollisionChecker collisionManager, EnemyData data) {
         super(position, collisionManager, data);
         this.Minions = new ArrayList<>();
-        this.batFactory = new BatFactory();
+        this.batFactory = new BatFactory(collisionManager , DataManager.getInstance().getEnemyData("Bat"));
         this.SummonCooldown = data.getExtra().get("SummonCooldown");
         this.MaxMinions = data.getExtra().get("MaxMinions");
         SetMoveStrategy(new SteeringBehaviorStrategy(collisionManager));
@@ -124,9 +124,7 @@ public class Necromancer extends Enemy implements Hasminions {
             Vector2 spawnPosition = generateSpawnPosition();
 
             minions.add(batFactory
-                .withData((DataManager.getInstance().getEnemyData("Bat")))
                 .withPosition(spawnPosition)
-                .withCollisionChecker(collisionManager)
                 .build());
         }
         return minions;

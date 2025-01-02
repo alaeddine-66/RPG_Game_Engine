@@ -1,6 +1,7 @@
 package com.engine.model.entity.enemy.manager;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.engine.model.entity.enemy.factory.EnemyFactoryProvider;
 import com.engine.model.entity.enemy.model.Enemy;
 import com.engine.model.entity.enemy.spawn.SpawnPositionStrategy;
 import com.engine.model.map.IMapCollisionChecker;
@@ -8,18 +9,21 @@ import com.engine.model.map.IMapCollisionChecker;
 import com.engine.model.data.EnemyData;
 import com.engine.model.entity.enemy.factory.AbstractEnemyBuilder;
 
-import com.engine.model.resource.DataManager;
 import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyManager {
     private final IMapCollisionChecker collisionChecker;
+    private final EnemyFactoryProvider factoryProvider;
     private SpawnPositionStrategy spawnStrategy;
 
-    public EnemyManager(IMapCollisionChecker collisionChecker, SpawnPositionStrategy spawnStrategy) {
+    public EnemyManager(IMapCollisionChecker collisionChecker,
+                        SpawnPositionStrategy spawnStrategy,
+                        EnemyFactoryProvider factoryProvider) {
         this.collisionChecker = collisionChecker;
         this.spawnStrategy = spawnStrategy;
+        this.factoryProvider = factoryProvider;
     }
 
     // Factory pour créer des ennemis
@@ -29,28 +33,22 @@ public class EnemyManager {
             Vector2 spawnPos;
             do {
                 spawnPos = spawnStrategy.generateSpawnPosition(data);
-            } while (collisionChecker.isInRestrictedZone(new Rectangle(spawnPos.x , spawnPos.y, data.getWidth(), data.getHeight())));
+            } while (collisionChecker.isInRestrictedZone(new Rectangle(spawnPos.x, spawnPos.y, data.getWidth(), data.getHeight())));
 
-            AbstractEnemyBuilder factory = DataManager.getInstance().getEnemyFactory(data.getId());
-            if (factory == null) {
-                throw new IllegalArgumentException("Factory non trouvée pour l'ID: " + data.getId());
-            }
+            AbstractEnemyBuilder factory = factoryProvider.getFactory(data.getId());
+
 
             enemies.add(factory
-                .withData(data)
                 .withPosition(spawnPos)
-                .withCollisionChecker(collisionChecker)
                 .build()
             );
         }
         return enemies;
     }
 
-    public void setSpawnStrategy(SpawnPositionStrategy spawnStrategy){
+    public void setSpawnStrategy(SpawnPositionStrategy spawnStrategy) {
         this.spawnStrategy = spawnStrategy;
     }
-
 }
-
 
 

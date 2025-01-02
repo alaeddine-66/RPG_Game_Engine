@@ -16,7 +16,6 @@ public class BulletFactory implements IProjectileFactory {
         this.data = data;
     }
 
-
     @Override
     public AbstractProjectile createProjectile(Vector2 position, Vector2 velocity) {
         return new Bullet(position, velocity, data);

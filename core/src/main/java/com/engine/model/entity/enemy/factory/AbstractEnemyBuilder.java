@@ -11,18 +11,13 @@ public abstract class AbstractEnemyBuilder implements EnemyFactory {
     protected IMapCollisionChecker collisionChecker;
     protected EnemyData data;
 
+    public AbstractEnemyBuilder(IMapCollisionChecker collisionChecker, EnemyData data){
+        this.collisionChecker = collisionChecker;
+        this.data = data;
+    }
+
     public AbstractEnemyBuilder withPosition(Vector2 position) {
         this.position = position;
-        return this;
-    }
-
-    public AbstractEnemyBuilder withCollisionChecker(IMapCollisionChecker collisionChecker) {
-        this.collisionChecker = collisionChecker;
-        return this;
-    }
-
-    public AbstractEnemyBuilder withData(EnemyData data) {
-        this.data = data;
         return this;
     }
 

@@ -18,6 +18,7 @@ import com.engine.controller.IInputHandler;
 import com.engine.controller.LibGdxInputHandler;
 import com.engine.model.collectible.DroppedItemManager;
 import com.engine.model.ObserverPattern.Observer;
+import com.engine.model.entity.enemy.factory.EnemyFactoryProvider;
 import com.engine.model.map.MapManager;
 import com.engine.model.resource.*;
 import com.game.model.collectible.factory.CoinFactory;
@@ -113,12 +114,6 @@ public class Main extends ApplicationAdapter {
         DataManager.getInstance().loadEnemyData("Magician" , "concreate_game/src/resources/data/enemies/Magician.json");
         DataManager.getInstance().loadEnemyData("Necromancer" , "concreate_game/src/resources/data/enemies/Necromancer.json");
         DataManager.getInstance().loadEnemyData("Bat" , "concreate_game/src/resources/data/enemies/Bat.json");
-
-        //Load Enemies Factories
-        DataManager.getInstance().loadEnemyFactory("Normal",new NormalEnemyFactory());
-        DataManager.getInstance().loadEnemyFactory("Magician",new MagicienFactory());
-        DataManager.getInstance().loadEnemyFactory("Necromancer",new NecromancerFactory());
-        DataManager.getInstance().loadEnemyFactory("Bat",new BatFactory());
 
         //Load Projectiles Data
         DataManager.getInstance().loadProjectileData("Bullet", "concreate_game/src/resources/data/Projectile/Bullet.json");
@@ -223,7 +218,13 @@ public class Main extends ApplicationAdapter {
 
         enemytype = EnemyDataLoader.loadEnemyDataFromDirectory("concreate_game/src/resources/data/enemies");
         SpawnPositionStrategy spawnStrategy = new BorderSpawnStrategy(collisionManager);
-        enemyManager = new EnemyManager(collisionManager,spawnStrategy);
+        //Load Enemies Factories
+        EnemyFactoryProvider factoryRegistery = new EnemyFactoryProvider();
+        factoryRegistery.registerFactory("Normal",new NormalEnemyFactory(collisionManager,enemytype.get("Normal")));
+        factoryRegistery.registerFactory("Magician",new MagicienFactory(collisionManager,enemytype.get("Magician")));
+        factoryRegistery.registerFactory("Necromancer",new NecromancerFactory(collisionManager,enemytype.get("Necromancer")));
+        factoryRegistery.registerFactory("Bat",new BatFactory(collisionManager,enemytype.get("Bat")));
+        enemyManager = new EnemyManager(collisionManager,spawnStrategy , factoryRegistery);
 
         waveManager = new WaveManager(enemytype , enemyManager);
         waveManager.loadWave("concreate_game/src/resources/data/waves");
