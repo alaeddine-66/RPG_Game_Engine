@@ -27,22 +27,6 @@ Avant de compiler et d'exécuter le projet, assurez-vous d'avoir :
 └── README.md           # Ce fichier
 ```
 
-## Gradle
-
-Le projet utilise Gradle pour gérer les dépendances. Le wrapper Gradle est inclus, ce qui permet d'exécuter les tâches Gradle avec les commandes gradlew.bat ou ./gradlew.
-
-Tâches Utiles
-
-- `--continue` : Les erreurs n'interrompent pas l'exécution des tâches.
-- `--daemon` : Utilise le démon Gradle pour accélérer les exécutions.
-- `--offline` : Utilise les archives de dépendances mises en cache.
-- `--refresh-dependencies` : Valide toutes les dépendances, utile pour les versions snapshot.
-- `build` : Compile les sources et génère les archives pour chaque projet.
-- `clean` : Supprime les dossiers de build contenant les classes compilées et les archives générées.
-- `lwjgl3:jar` : Génère un jar exécutable dans lwjgl3/build/libs.
-- `lwjgl3:run` : Démarre l'application sur la plateforme de bureau.
-- `test`: runs unit tests (if any).
-
 ## Instructions d'Exécution
 
 ### Étape 1 : Cloner le Dépôt
@@ -67,6 +51,22 @@ run.bat
 ```
 
 Pour créer votre propre jeu, ajoutez vos fichiers au dossier concreate_game en suivant l'exemple fourni.
+
+## Gradle
+
+Le projet utilise Gradle pour gérer les dépendances. Le wrapper Gradle est inclus, ce qui permet d'exécuter les tâches Gradle avec les commandes gradlew.bat ou ./gradlew.
+
+Tâches Utiles
+
+- `--continue` : Les erreurs n'interrompent pas l'exécution des tâches.
+- `--daemon` : Utilise le démon Gradle pour accélérer les exécutions.
+- `--offline` : Utilise les archives de dépendances mises en cache.
+- `--refresh-dependencies` : Valide toutes les dépendances, utile pour les versions snapshot.
+- `build` : Compile les sources et génère les archives pour chaque projet.
+- `clean` : Supprime les dossiers de build contenant les classes compilées et les archives générées.
+- `lwjgl3:jar` : Génère un jar exécutable dans lwjgl3/build/libs.
+- `lwjgl3:run` : Démarre l'application sur la plateforme de bureau.
+- `test`: runs unit tests (if any).
 
 ## Licence
 
