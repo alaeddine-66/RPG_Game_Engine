@@ -19,8 +19,16 @@ public abstract class HitBoxBase implements IHitBox , IComponent {
         return collisionStrategy.intersects(this, other);
     }
 
+    public Vector2 getPosition() {
+        return position;
+    }
+
     public void setPosition(Vector2 position) {
         this.position = position;
+    }
+
+    public Vector2 getSize() {
+        return size;
     }
 
     public void setSize(Vector2 size) {
@@ -35,15 +43,8 @@ public abstract class HitBoxBase implements IHitBox , IComponent {
         setSize(size);
     }
 
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public Vector2 getSize() {
-        return size;
-    }
-
     public void setCollisionStrategy(CollisionStrategy collisionStrategy){
         this.collisionStrategy = collisionStrategy;
     }
+
 }

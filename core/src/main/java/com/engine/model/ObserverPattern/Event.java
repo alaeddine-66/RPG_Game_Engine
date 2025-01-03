@@ -16,5 +16,4 @@ public abstract class Event {
     // Méthode abstraite pour traiter un événement
     public abstract void handle(ILevelUpComponent component);
 
-
 }

@@ -1,15 +1,21 @@
 package com.engine.model.entity.components.hitBox;
 
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
 public class CircleHitBox extends HitBoxBase {
     private Vector2 center;
     private float radius;
+    private Circle circle;
 
     public CircleHitBox(Vector2 center, float radius, CollisionStrategy collisionStrategy) {
         super(center, new Vector2(radius * 2, radius * 2), collisionStrategy);
-        this.center = center;
+        this.circle = new Circle(center , radius);
         this.radius = radius;
+    }
+
+    public Circle getCircle(){
+        return circle;
     }
 
     @Override
@@ -27,6 +33,7 @@ public class CircleHitBox extends HitBoxBase {
 
     @Override
     public boolean contains(Vector2 point) {
-        return false;
+        return circle.contains(point);
     }
+
 }

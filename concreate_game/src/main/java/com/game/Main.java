@@ -18,7 +18,8 @@ import com.engine.controller.IInputHandler;
 import com.engine.controller.LibGdxInputHandler;
 import com.engine.model.collectible.DroppedItemManager;
 import com.engine.model.ObserverPattern.Observer;
-import com.engine.model.entity.enemy.factory.EnemyFactoryProvider;
+import com.engine.model.entity.enemy.factory.AbstractEnemyBuilder;
+import com.engine.model.resource.FactoryProvider;
 import com.engine.model.map.MapManager;
 import com.engine.model.resource.*;
 import com.game.model.collectible.factory.CoinFactory;
@@ -119,10 +120,6 @@ public class Main extends ApplicationAdapter {
         DataManager.getInstance().loadProjectileData("Bullet", "concreate_game/src/resources/data/Projectile/Bullet.json");
         DataManager.getInstance().loadProjectileData("FireBall", "concreate_game/src/resources/data/Projectile/FireBall.json");
 
-        //Load Projectiles Factories
-        DataManager.getInstance().loadProjectileFactory("Bullet",new BulletFactory(DataManager.getInstance().getProjectileData("Bullet")));
-        DataManager.getInstance().loadProjectileFactory("FireBall",new BulletFactory(DataManager.getInstance().getProjectileData("FireBall")));
-
         //Load Weapons Data
         DataManager.getInstance().loadWeaponData("Gun" , "concreate_game/src/resources/data/weapons/gun.json");
         DataManager.getInstance().loadWeaponData("Magic Stick" , "concreate_game/src/resources/data/weapons/magic_stick.json");
@@ -180,6 +177,9 @@ public class Main extends ApplicationAdapter {
 
         // Load player and Weapon data
         PlayerData playerData = DataManager.loadJsonData("concreate_game/src/resources/data/player.json", PlayerData.class);
+        //Load Projectiles Factories
+        DataManager.getInstance().loadProjectileFactory("Bullet",new BulletFactory(DataManager.getInstance().getProjectileData("Bullet")));
+        DataManager.getInstance().loadProjectileFactory("FireBall",new BulletFactory(DataManager.getInstance().getProjectileData("FireBall")));
         weapon = WeaponManager.createWeapon(playerData.getStartWeapon(),DataManager.getInstance().getAllWeaponData());
 
         IMovement playerMovement = new PlayerMovement(playerData.getSpeed(), collisionManager);
@@ -219,7 +219,7 @@ public class Main extends ApplicationAdapter {
         enemytype = EnemyDataLoader.loadEnemyDataFromDirectory("concreate_game/src/resources/data/enemies");
         SpawnPositionStrategy spawnStrategy = new BorderSpawnStrategy(collisionManager);
         //Load Enemies Factories
-        EnemyFactoryProvider factoryRegistery = new EnemyFactoryProvider();
+        FactoryProvider<AbstractEnemyBuilder> factoryRegistery = new FactoryProvider();
         factoryRegistery.registerFactory("Normal",new NormalEnemyFactory(collisionManager,enemytype.get("Normal")));
         factoryRegistery.registerFactory("Magician",new MagicienFactory(collisionManager,enemytype.get("Magician")));
         factoryRegistery.registerFactory("Necromancer",new NecromancerFactory(collisionManager,enemytype.get("Necromancer")));
@@ -250,13 +250,12 @@ public class Main extends ApplicationAdapter {
 
         levelUpPopup = new LevelUpScreen(stage, skin, upgradeManager );
 
-        HUDDataProvider dataProvider = new HUDDataProvider(Mainplayer, waveManager);
         hudManager = new HUDManager();
 
-        hudManager.addComponent(new HealthBarComponent(batch, cam, dataProvider));
-        hudManager.addComponent(new ExpBarComponent(batch, cam, dataProvider));
-        hudManager.addComponent(new WaveInfoComponent(batch , cam , dataProvider));
-        hudManager.addComponent(new CurrencyInfoComponent(batch , cam , dataProvider));
+        hudManager.addComponent(new HealthBarComponent(batch, cam, Mainplayer.getHealthComponent()));
+        hudManager.addComponent(new ExpBarComponent(batch, cam, Mainplayer.getComponent(ExperienceComponent.class)));
+        hudManager.addComponent(new WaveInfoComponent(batch , cam , waveManager));
+        hudManager.addComponent(new CurrencyInfoComponent(batch , cam , Mainplayer.getComponent(CoinPurse.class).getCoins()));
 
     }
 

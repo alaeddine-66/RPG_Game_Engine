@@ -5,19 +5,20 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.engine.model.entity.components.HealthComponent;
 import com.engine.view.hud.AbstractHUDComponents;
-import com.engine.view.hud.HUDDataProvider;
-
 
 public class HealthBarComponent extends AbstractHUDComponents {
 
     private ShapeRenderer shapeRenderer;
     private Texture heartTexture;
+    private HealthComponent Health;
 
-    public HealthBarComponent(SpriteBatch batch, OrthographicCamera camera, HUDDataProvider dataProvider) {
-        super(batch, camera, dataProvider);
+    public HealthBarComponent(SpriteBatch batch, OrthographicCamera camera, HealthComponent Health) {
+        super(batch, camera);
         this.shapeRenderer = new ShapeRenderer();
         this.heartTexture = new Texture("concreate_game/src/assets/bg/heart.png");
+        this.Health = Health;
     }
 
     @Override
@@ -26,8 +27,8 @@ public class HealthBarComponent extends AbstractHUDComponents {
         float healthBarY = camera.position.y - camera.viewportHeight / 2 + 30;
         float barWidth = camera.viewportWidth / 2 - camera.viewportWidth / 8;
 
-        int currentHealth = dataProvider.getCurrentHealth();
-        int maxHealth = dataProvider.getMaxHealth();
+        int currentHealth = Health.getHp();
+        int maxHealth = Health.getMaxHp();
 
         // Fond de la barre
         shapeRenderer.setProjectionMatrix(camera.combined);
@@ -43,7 +44,7 @@ public class HealthBarComponent extends AbstractHUDComponents {
         // Icône et texte
         batch.begin();
         batch.draw(heartTexture, healthBarX - 16, healthBarY, 16, 16);
-        font.draw(batch, dataProvider.getCurrentHealth() + " / " + dataProvider.getMaxHealth(), healthBarX +barWidth+ 10, healthBarY + 12);
+        font.draw(batch, currentHealth+ " / " + maxHealth, healthBarX +barWidth+ 10, healthBarY + 12);
         batch.end();
     }
 

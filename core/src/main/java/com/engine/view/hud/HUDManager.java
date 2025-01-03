@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class HUDManager {
 
-    private final List<AbstractHUDComponents> components; // Liste des composants HUD à afficher
+    private final List<HUDComponents> components; // Liste des composants HUD à afficher
 
     /**
      * Constructeur de la classe {@code HUDManager}.
@@ -34,19 +34,19 @@ public class HUDManager {
      *
      * @param component Le composant HUD à ajouter (ex. : barre de santé, score, etc.).
      */
-    public void addComponent(AbstractHUDComponents component) {
+    public void addComponent(HUDComponents component) {
         components.add(component);
     }
 
     /**
      * Rendu de tous les composants HUD ajoutés.
      * <p>
-     * Cette méthode parcourt la liste des composants HUD et appelle la méthode {@link AbstractHUDComponents#render()}
+     * Cette méthode parcourt la liste des composants HUD et appelle la méthode {@link HUDComponents#render()}
      * pour chaque composant, afin de les afficher à l'écran.
      * </p>
      */
     public void render() {
-        for (AbstractHUDComponents component : components) {
+        for (HUDComponents component : components) {
             component.render(); // Rendre chaque composant HUD
         }
     }

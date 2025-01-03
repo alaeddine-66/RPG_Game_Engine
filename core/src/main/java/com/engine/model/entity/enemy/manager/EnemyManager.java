@@ -1,7 +1,7 @@
 package com.engine.model.entity.enemy.manager;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.engine.model.entity.enemy.factory.EnemyFactoryProvider;
+import com.engine.model.resource.FactoryProvider;
 import com.engine.model.entity.enemy.model.Enemy;
 import com.engine.model.entity.enemy.spawn.SpawnPositionStrategy;
 import com.engine.model.map.IMapCollisionChecker;
@@ -15,12 +15,12 @@ import java.util.List;
 
 public class EnemyManager {
     private final IMapCollisionChecker collisionChecker;
-    private final EnemyFactoryProvider factoryProvider;
+    private final FactoryProvider<AbstractEnemyBuilder> factoryProvider;
     private SpawnPositionStrategy spawnStrategy;
 
     public EnemyManager(IMapCollisionChecker collisionChecker,
                         SpawnPositionStrategy spawnStrategy,
-                        EnemyFactoryProvider factoryProvider) {
+                        FactoryProvider<AbstractEnemyBuilder> factoryProvider) {
         this.collisionChecker = collisionChecker;
         this.spawnStrategy = spawnStrategy;
         this.factoryProvider = factoryProvider;

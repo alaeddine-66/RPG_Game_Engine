@@ -2,14 +2,15 @@ package com.game.view.hud;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.engine.model.waves.WaveManager;
 import com.engine.view.hud.AbstractHUDComponents;
-import com.engine.view.hud.HUDDataProvider;
-
 
 public class WaveInfoComponent extends AbstractHUDComponents {
 
-    public WaveInfoComponent(SpriteBatch batch, OrthographicCamera camera, HUDDataProvider dataProvider) {
-        super(batch, camera, dataProvider);
+    private WaveManager waveManager;
+    public WaveInfoComponent(SpriteBatch batch, OrthographicCamera camera, WaveManager waveManager) {
+        super(batch, camera);
+        this.waveManager = waveManager;
     }
 
     @Override
@@ -19,7 +20,7 @@ public class WaveInfoComponent extends AbstractHUDComponents {
         font.getData().setScale(1.5f); // Double la taille du texte
 
         batch.begin();
-        font.draw(batch, "Wave: " + dataProvider.getCurrentWave() + " / " + dataProvider.getWaveNumber(), waveX, waveY);
+        font.draw(batch, "Wave: " + waveManager.getCurrentWave() + " / " + waveManager.getTotalWaves(), waveX, waveY);
         batch.end();
 
         font.getData().setScale(1f); // Double la taille du texte

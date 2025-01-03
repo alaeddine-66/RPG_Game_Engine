@@ -3,6 +3,7 @@ package com.engine.model.entity.components.hitBox;
 import com.badlogic.gdx.math.Vector2;
 
 public interface IHitBox {
+
     boolean intersects(IHitBox other);
 
     boolean contains(Vector2 point);

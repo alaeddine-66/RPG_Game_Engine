@@ -4,15 +4,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.engine.view.hud.AbstractHUDComponents;
-import com.engine.view.hud.HUDDataProvider;
 
 
 public class CurrencyInfoComponent extends AbstractHUDComponents {
 
     private Texture coinTexture;
+    private int coins ;
 
-    public CurrencyInfoComponent(SpriteBatch batch, OrthographicCamera camera, HUDDataProvider dataProvider) {
-        super(batch, camera, dataProvider);
+    public CurrencyInfoComponent(SpriteBatch batch, OrthographicCamera camera , int coins) {
+        super(batch, camera);
+        this.coins = coins ;
         this.coinTexture =  new Texture("concreate_game/src/assets/bg/coin.png");
     }
 
@@ -23,7 +24,7 @@ public class CurrencyInfoComponent extends AbstractHUDComponents {
 
         batch.begin();
         batch.draw(coinTexture, currencyX, currencyY, 64, 64);
-        font.draw(batch, "" + dataProvider.getCoins() , currencyX - 20, currencyY + 20 );
+        font.draw(batch, "" + coins , currencyX - 20, currencyY + 20 );
         batch.end();
 
     }

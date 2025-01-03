@@ -1,7 +1,5 @@
 package com.engine.model.ObserverPattern;
 
-import com.engine.model.ObserverPattern.Event;
-
 /**
  * Interface représentant un observateur dans un système de notification d'événements.
  * <p>

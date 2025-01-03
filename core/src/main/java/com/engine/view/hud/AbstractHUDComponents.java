@@ -12,11 +12,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
  * implémenter la méthode {@link #render()} pour définir comment les informations sont affichées.
  * </p>
  */
-public abstract class AbstractHUDComponents {
+public abstract class AbstractHUDComponents implements HUDComponents{
 
     protected OrthographicCamera camera; // La caméra utilisée pour l'affichage du HUD
     protected SpriteBatch batch; // Le SpriteBatch utilisé pour le rendu graphique
-    protected HUDDataProvider dataProvider; // Le fournisseur de données pour les informations du HUD
     protected BitmapFont font; // La police utilisée pour l'affichage du texte
 
     /**
@@ -28,22 +27,12 @@ public abstract class AbstractHUDComponents {
      *
      * @param batch Le SpriteBatch utilisé pour dessiner les éléments graphiques.
      * @param camera La caméra orthographique utilisée pour afficher le HUD.
-     * @param dataProvider Le fournisseur de données pour obtenir les informations du HUD.
      */
-    public AbstractHUDComponents(SpriteBatch batch, OrthographicCamera camera, HUDDataProvider dataProvider) {
+    public AbstractHUDComponents(SpriteBatch batch, OrthographicCamera camera) {
         this.camera = camera;
         this.batch = batch;
-        this.dataProvider = dataProvider;
         this.font = new BitmapFont(); // Initialise une nouvelle police par défaut
     }
 
-    /**
-     * Méthode abstraite qui doit être implémentée pour définir le rendu spécifique du HUD.
-     * <p>
-     * Chaque composant du HUD (par exemple, barre de santé, score) doit fournir sa propre
-     * implémentation de cette méthode pour afficher les informations pertinentes à l'écran.
-     * </p>
-     */
-    public abstract void render();
 }
 
