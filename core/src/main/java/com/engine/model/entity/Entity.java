@@ -3,6 +3,8 @@ package com.engine.model.entity;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.engine.model.entity.components.IComponent;
+import com.engine.model.entity.components.hitBox.HitBox;
+import com.engine.model.entity.components.hitBox.IHitBox;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +23,7 @@ public abstract class Entity {
     protected Vector2 position;
 
     /** The size of the entity, representing its width and height. */
-    protected Vector2 size;
-
-    /** The bounding box used for collision detection. */
-    protected Rectangle boundingBox;
+    protected HitBox hitBox;
 
     /** The speed of the entity, used for movement calculations. */
     protected int speed;
@@ -39,13 +38,11 @@ public abstract class Entity {
      *
      * @param id       the unique identifier of the entity.
      * @param position the initial position of the entity.
-     * @param size     the size of the entity (width and height).
      */
-    public Entity(String id, Vector2 position, Vector2 size) {
+    public Entity(String id, Vector2 position, HitBox hitBox) {
         this.id = id;
         this.position = position;
-        this.size = size;
-        this.boundingBox = new Rectangle(position.x, position.y, size.x, size.y);
+        this.hitBox = hitBox;
         this.components = new HashMap<>();
 
     }
@@ -97,31 +94,11 @@ public abstract class Entity {
      */
     public void setPosition(Vector2 position) {
         this.position = position;
-        updateBoundingBox();
+        hitBox.setPosition(position);
     }
 
-    /**
-     * Gets the bounding box of the entity.
-     *
-     * @return the entity's bounding box.
-     */
-    public Rectangle getBbox() {
-        return boundingBox;
-    }
-
-    /**
-     * Updates the bounding box based on the current position and size.
-     */
-    public void updateBoundingBox() {
-        this.boundingBox.set(position.x, position.y, size.x, size.y);
-    }
-
-    public int getWidth(){
-        return (int) size.x;
-    }
-
-    public int getHeight(){
-        return (int) size.y;
+    public HitBox getBbox(){
+        return hitBox;
     }
 
     /**

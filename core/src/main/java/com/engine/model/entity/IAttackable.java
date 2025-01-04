@@ -1,7 +1,7 @@
 package com.engine.model.entity;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.engine.model.entity.components.HealthComponent;
+import com.engine.model.entity.components.hitBox.HitBox;
 
 /**
  * Interface représentant un objet ou une entité qui peut être attaqué dans le jeu.
@@ -28,7 +28,7 @@ public interface IAttackable {
      * La boîte de détection est utilisée pour savoir si un attaquant entre en collision avec l'entité, indiquant qu'une attaque a eu lieu.
      * </p>
      *
-     * @return un objet {@link Rectangle} représentant la zone de détection de l'entité.
+     * @return un objet {@link HitBox} représentant la zone de détection de l'entité.
      */
-    Rectangle getBbox();
+    HitBox getBbox();
 }

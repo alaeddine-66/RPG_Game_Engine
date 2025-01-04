@@ -1,5 +1,6 @@
 {
   "id": "Magician",
+  "HitBoxType": "rectangle",
   "idlePath": "concreate_game/src/assets/sprite/magi-g.png",
   "movePath": "concreate_game/src/assets/sprite/magi-g.png",
   "attackPath": "concreate_game/src/assets/sprite/magi_attack.png",

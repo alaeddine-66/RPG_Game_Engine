@@ -3,6 +3,7 @@ package com.engine.model.data;
 
 public class ProjectileData {
     private String type;
+    private String HitBoxType;
     private String path;
     private int width;
     private int height;
@@ -12,6 +13,10 @@ public class ProjectileData {
 
     public String getType() {
         return type;
+    }
+
+    public String getHitBoxType() {
+        return HitBoxType;
     }
 
     public int getWidth() {

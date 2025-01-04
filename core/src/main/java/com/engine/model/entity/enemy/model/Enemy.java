@@ -6,6 +6,7 @@ import com.engine.model.entity.IAttackable;
 import com.engine.model.entity.IAttacker;
 import com.engine.model.entity.components.HealthComponent;
 import com.engine.model.entity.components.StrengthComponent;
+import com.engine.model.entity.components.hitBox.HitBox;
 import com.engine.model.map.IMapCollisionChecker;
 import com.engine.model.entity.Entity;
 import com.engine.model.data.EnemyData;
@@ -24,9 +25,8 @@ public abstract class Enemy extends Entity implements IAttackable , IAttacker {
     private final EnemyData data;
     protected Vector2 nextPosition ;
 
-    public Enemy(Vector2 position ,  IMapCollisionChecker collisionManager ,  EnemyData data) {
-        super(data.getId() ,position, new Vector2 (data.getWidth() , data.getHeight() ));
-        this.boundingBox = new Rectangle(position.x, position.y, data.getWidth(), data.getHeight());
+    public Enemy(Vector2 position ,  IMapCollisionChecker collisionManager ,  EnemyData data , HitBox hitBox) {
+        super(data.getId() ,position, hitBox);
         this.collisionManager = collisionManager;
         this.data = data ;
         this.nextPosition = new Vector2();
@@ -59,12 +59,11 @@ public abstract class Enemy extends Entity implements IAttackable , IAttacker {
     public abstract void move(List<IAttackable> targets, float dt);
 
     public void setPosition(Vector2 nextPosition) {
-        updateBoundingBox();
-        if (!collisionManager.isInRestrictedZone(boundingBox)) {
+        if (!collisionManager.isInRestrictedZone(getBbox())) {
             this.position = nextPosition;
         } else {
-            collisionManager.resolveCollisions(position, direction, (int) boundingBox.width, (int) boundingBox.height);
-        }
+            collisionManager.resolveCollisions(getBbox(),position, direction);
+        }getBbox().setPosition(position);
     }
 
     public Vector2 getDirection(){
@@ -92,4 +91,5 @@ public abstract class Enemy extends Entity implements IAttackable , IAttacker {
     public StrengthComponent getStrengthComponent(){
         return getComponent(StrengthComponent.class) ;
     }
+
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class EnemyData {
     private String id;
+    private String HitBoxType;
     private String Type;
     private String idlePath;
     private String movePath;
@@ -20,6 +21,10 @@ public class EnemyData {
     // Getters and Setters
     public String getId() {
         return id;
+    }
+
+    public String getHitBoxType() {
+        return HitBoxType;
     }
 
     public String getIdlePath() {

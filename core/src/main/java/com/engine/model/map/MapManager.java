@@ -1,11 +1,15 @@
 package com.engine.model.map;
 
 
+import com.engine.model.map.MapObjects.HitBoxGenerationStrategyRegistry;
+
 public class MapManager {
     private MapLoader currentMapLoader;
     private String currentMapPath;
+    private final HitBoxGenerationStrategyRegistry ObstaclesRegistry;
 
-    public MapManager(String initialMapPath) {
+    public MapManager(String initialMapPath , HitBoxGenerationStrategyRegistry ObstaclesRegistry) {
+        this.ObstaclesRegistry = ObstaclesRegistry;
         loadMap(initialMapPath);
     }
 
@@ -14,7 +18,7 @@ public class MapManager {
             currentMapLoader.dispose();
         }
         currentMapPath = mapPath;
-        currentMapLoader = new MapLoader(mapPath);
+        currentMapLoader = new MapLoader(mapPath , ObstaclesRegistry);
     }
 
     public MapLoader getCurrentMapLoader() {

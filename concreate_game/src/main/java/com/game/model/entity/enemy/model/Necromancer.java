@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.engine.model.entity.IAttackable;
+import com.engine.model.entity.components.hitBox.HitBox;
+import com.engine.model.entity.components.hitBox.factory.RectangleHitBoxFactory;
 import com.engine.model.entity.enemy.factory.AbstractEnemyBuilder;
 import com.engine.model.data.EnemyData;
 import com.engine.model.entity.enemy.model.Hasminions;
@@ -29,10 +31,10 @@ public class Necromancer extends Enemy implements Hasminions {
     private float delay = 0;
 
 
-    public Necromancer(Vector2 position, IMapCollisionChecker collisionManager, EnemyData data) {
-        super(position, collisionManager, data);
+    public Necromancer(Vector2 position, IMapCollisionChecker collisionManager, EnemyData data , HitBox hitBox) {
+        super(position, collisionManager, data , hitBox);
         this.Minions = new ArrayList<>();
-        this.batFactory = new BatFactory(collisionManager , DataManager.getInstance().getEnemyData("Bat"));
+        this.batFactory = new BatFactory(collisionManager , DataManager.getInstance().getEnemyData("Bat") , new RectangleHitBoxFactory());
         this.SummonCooldown = data.getExtra().get("SummonCooldown");
         this.MaxMinions = data.getExtra().get("MaxMinions");
         SetMoveStrategy(new SteeringBehaviorStrategy(collisionManager));
@@ -72,8 +74,8 @@ public class Necromancer extends Enemy implements Hasminions {
         if (attackables.isEmpty()) return;
         IAttackable primaryTarget = attackables.get(0);
 
-        Vector2 playerPos = new Vector2(primaryTarget.getBbox().x , primaryTarget.getBbox().y);
-        Vector2 enemyPos = this.getPosition();
+        Vector2 playerPos = primaryTarget.getBbox().getPosition().cpy();
+        Vector2 enemyPos = position.cpy();
 
         Vector2 targetPosition; // Position cible calculée
 
@@ -83,7 +85,7 @@ public class Necromancer extends Enemy implements Hasminions {
         if (distanceToPlayer < safeDistance) {
             // Si trop proche, éloigner l'ennemi en calculant une position opposée
             Vector2 directionAwayFromPlayer = new Vector2(enemyPos).sub(playerPos).nor();
-            targetPosition = playerPos.cpy().add(directionAwayFromPlayer.scl(safeDistance));
+            targetPosition = playerPos.add(directionAwayFromPlayer.scl(safeDistance));
         } else if (distanceToPlayer > maxDistance) {
             // Si trop loin, rapprocher l'ennemi pour rester visible
             Vector2 directionToPlayer = new Vector2(playerPos).sub(enemyPos).nor();
@@ -102,8 +104,8 @@ public class Necromancer extends Enemy implements Hasminions {
         direction = moveStrategy.followPath(this, targetPosition);
 
         // Appliquer le mouvement
-        position.add(direction.scl(getSpeed() * dt));
-        updateBoundingBox();
+        setPosition(position.add(direction.scl(getSpeed() * dt)));
+        getBbox().setPosition(position);
     }
 
     /**
@@ -122,9 +124,10 @@ public class Necromancer extends Enemy implements Hasminions {
         List<Enemy> minions = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Vector2 spawnPosition = generateSpawnPosition();
-
+            Vector2 Size = new Vector2(batFactory.getData().getWidth() , batFactory.getData().getHeight());
             minions.add(batFactory
                 .withPosition(spawnPosition)
+                .withHitBox(batFactory.getHitBoxFactory().createHitBox(spawnPosition,Size))
                 .build());
         }
         return minions;
@@ -153,7 +156,7 @@ public class Necromancer extends Enemy implements Hasminions {
         do {
             spawnPos = new Vector2(this.position.x + MathUtils.random(-50, 50),
                 this.position.y + MathUtils.random(-50, 50));
-        } while (collisionManager.isInRestrictedZone(new Rectangle(spawnPos.x , spawnPos.y, getBbox().width, getBbox().height)));
+        } while (collisionManager.isInRestrictedZone(getBbox().copy(spawnPos.x , spawnPos.y)));
         return spawnPos ;
     }
 

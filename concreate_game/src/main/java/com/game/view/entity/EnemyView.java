@@ -76,7 +76,7 @@ public class EnemyView extends AbstractEntityView {
         batch.draw(
             enemyTexture,
             enemy.getPosition().x, enemy.getPosition().y,
-            enemy.getBbox().width, enemy.getBbox().height
+            enemy.getBbox().getWidth(), enemy.getBbox().getHeight()
         );
 
     }
@@ -129,8 +129,8 @@ public class EnemyView extends AbstractEntityView {
      */
     private void renderHealthBar(Enemy enemy) {
         float healthBarX = enemy.getPosition().x;
-        float healthBarY = enemy.getPosition().y + enemy.getBbox().height + 5;
-        float barWidth = enemy.getBbox().width;
+        float healthBarY = enemy.getPosition().y + enemy.getBbox().getHeight() + 5;
+        float barWidth = enemy.getBbox().getWidth();
         float barHeight = 5;
 
         // Calcul de la largeur actuelle de la barre de santé

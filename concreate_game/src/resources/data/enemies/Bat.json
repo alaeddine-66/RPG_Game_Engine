@@ -1,5 +1,6 @@
 {
   "id": "Bat",
+  "HitBoxType": "rectangle",
   "idlePath": "concreate_game/src/assets/sprite/bat.png",
   "movePath": "concreate_game/src/assets/sprite/bat-mvt.png",
   "attackPath": "concreate_game/src/assets/sprite/bat.png",

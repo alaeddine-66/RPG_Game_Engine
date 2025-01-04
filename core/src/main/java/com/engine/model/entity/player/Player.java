@@ -7,6 +7,7 @@ import com.engine.model.entity.IAttackable;
 import com.engine.model.entity.IAttacker;
 import com.engine.model.entity.components.*;
 import com.engine.model.data.PlayerData;
+import com.engine.model.entity.components.hitBox.HitBox;
 import com.engine.model.weapon.model.AbstractWeapon;
 
 import java.util.List;
@@ -27,9 +28,8 @@ public abstract class Player extends Entity implements IAttackable, IAttacker {
 
     protected final IInputHandler inputHandler;
 
-    public Player(PlayerData playerData, IInputHandler inputHandler, IMovement movement, ICombat combat) {
-        super(playerData.getid(), new Vector2(playerData.getStartPosition().getX(), playerData.getStartPosition().getY()),
-            new Vector2(playerData.getWidth(), playerData.getHeight()));
+    public Player(PlayerData playerData, IInputHandler inputHandler, IMovement movement, ICombat combat , HitBox hitbox) {
+        super(playerData.getid(), hitbox.getPosition() , hitbox);
 
         this.movement = movement;
         this.combat = combat;

@@ -4,6 +4,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.Color;
@@ -18,7 +21,16 @@ import com.engine.controller.IInputHandler;
 import com.engine.controller.LibGdxInputHandler;
 import com.engine.model.collectible.DroppedItemManager;
 import com.engine.model.ObserverPattern.Observer;
+import com.engine.model.entity.components.hitBox.CollisionStrategy;
+import com.engine.model.entity.components.hitBox.HitBox;
+import com.engine.model.entity.components.hitBox.RectangleCollisionStrategy;
+import com.engine.model.entity.components.hitBox.RectangleHitBox;
+import com.engine.model.entity.components.hitBox.factory.CircleHitBoxFactory;
+import com.engine.model.entity.components.hitBox.factory.HitBoxFactory;
+import com.engine.model.entity.components.hitBox.factory.RectangleHitBoxFactory;
 import com.engine.model.entity.enemy.factory.AbstractEnemyBuilder;
+import com.engine.model.map.MapObjects.HitBoxGenerationStrategyRegistry;
+import com.engine.model.map.MapObjects.RectangleHitBoxGenerationStrategy;
 import com.engine.model.resource.FactoryProvider;
 import com.engine.model.map.MapManager;
 import com.engine.model.resource.*;
@@ -171,20 +183,31 @@ public class Main extends ApplicationAdapter {
 
         batch = new SpriteBatch();
 
-        gameMap = new MapManager("concreate_game/src/assets/maps/map1/map.tmx"); // Charger une carte
+        HitBoxGenerationStrategyRegistry ObstaclesRegistry = new HitBoxGenerationStrategyRegistry();
+        ObstaclesRegistry.registerStrategy(RectangleMapObject.class , new RectangleHitBoxGenerationStrategy());
+        gameMap = new MapManager("concreate_game/src/assets/maps/map1/map.tmx" , ObstaclesRegistry); // Charger une carte
         collisionManager = new CollisionManager(gameMap.getCurrentMapLoader());
+
+        FactoryProvider<HitBoxFactory> factoryHitBoxRegistery = new FactoryProvider();
+        factoryHitBoxRegistery.registerFactory("rectangle",new RectangleHitBoxFactory());
+        factoryHitBoxRegistery.registerFactory("circle",new CircleHitBoxFactory());
 
 
         // Load player and Weapon data
         PlayerData playerData = DataManager.loadJsonData("concreate_game/src/resources/data/player.json", PlayerData.class);
         //Load Projectiles Factories
-        DataManager.getInstance().loadProjectileFactory("Bullet",new BulletFactory(DataManager.getInstance().getProjectileData("Bullet")));
-        DataManager.getInstance().loadProjectileFactory("FireBall",new BulletFactory(DataManager.getInstance().getProjectileData("FireBall")));
+        DataManager.getInstance().loadProjectileFactory("Bullet",new BulletFactory(DataManager.getInstance().getProjectileData("Bullet") ,
+            factoryHitBoxRegistery.getFactory(DataManager.getInstance().getProjectileData("Bullet").getHitBoxType())));
+        DataManager.getInstance().loadProjectileFactory("FireBall",new BulletFactory(DataManager.getInstance().getProjectileData("FireBall"),
+            factoryHitBoxRegistery.getFactory(DataManager.getInstance().getProjectileData("FireBall").getHitBoxType())));
         weapon = WeaponManager.createWeapon(playerData.getStartWeapon(),DataManager.getInstance().getAllWeaponData());
 
-        IMovement playerMovement = new PlayerMovement(playerData.getSpeed(), collisionManager);
+        Vector2 PlayerPosition = new Vector2(playerData.getStartPosition().getX(), playerData.getStartPosition().getY());
+        Vector2 PlayerSize = new Vector2(playerData.getWidth() , playerData.getHeight());
+        HitBox PlayerHitBox = factoryHitBoxRegistery.getFactory(playerData.getHitBoxType()).createHitBox(PlayerPosition , PlayerSize);
+        IMovement playerMovement = new PlayerMovement(PlayerHitBox,playerData.getSpeed(), collisionManager );
         ICombat playerCombat = new PlayerCombat(weapon);
-        Mainplayer = new BasicPlayer(playerData , inputHandler , playerMovement , playerCombat);
+        Mainplayer = new BasicPlayer(playerData , inputHandler , playerMovement , playerCombat , PlayerHitBox);
         playerView = new PlayerView(Mainplayer , playerData.getimages() , rm , batch);
         Mainplayer.addComponent(new HealthComponent(playerData.getmaxHp() , playerData.getMinHpIncrease(), playerData.getMaxHpIncrease()));
         Mainplayer.addComponent(new StrengthComponent(playerData.getStrength() , playerData.getMinDmgIncrease(), playerData.getMaxDmgIncrease()));
@@ -215,16 +238,15 @@ public class Main extends ApplicationAdapter {
         upgradeManager.addEffect("increase_magazine_size" , new IncreaseMagazineEffect());
         upgradeManager.addEffect("quick_reload" , new ReloadIncreaseEffect());
 
-
         enemytype = EnemyDataLoader.loadEnemyDataFromDirectory("concreate_game/src/resources/data/enemies");
         SpawnPositionStrategy spawnStrategy = new BorderSpawnStrategy(collisionManager);
         //Load Enemies Factories
         FactoryProvider<AbstractEnemyBuilder> factoryRegistery = new FactoryProvider();
-        factoryRegistery.registerFactory("Normal",new NormalEnemyFactory(collisionManager,enemytype.get("Normal")));
-        factoryRegistery.registerFactory("Magician",new MagicienFactory(collisionManager,enemytype.get("Magician")));
-        factoryRegistery.registerFactory("Necromancer",new NecromancerFactory(collisionManager,enemytype.get("Necromancer")));
-        factoryRegistery.registerFactory("Bat",new BatFactory(collisionManager,enemytype.get("Bat")));
-        enemyManager = new EnemyManager(collisionManager,spawnStrategy , factoryRegistery);
+        factoryRegistery.registerFactory("Normal",new NormalEnemyFactory(collisionManager,enemytype.get("Normal"),factoryHitBoxRegistery.getFactory(enemytype.get("Normal").getHitBoxType())));
+        factoryRegistery.registerFactory("Magician",new MagicienFactory(collisionManager,enemytype.get("Magician"),factoryHitBoxRegistery.getFactory(enemytype.get("Magician").getHitBoxType())));
+        factoryRegistery.registerFactory("Necromancer",new NecromancerFactory(collisionManager,enemytype.get("Necromancer"),factoryHitBoxRegistery.getFactory(enemytype.get("Necromancer").getHitBoxType())));
+        factoryRegistery.registerFactory("Bat",new BatFactory(collisionManager,enemytype.get("Bat"),factoryHitBoxRegistery.getFactory(enemytype.get("Bat").getHitBoxType())));
+        enemyManager = new EnemyManager(collisionManager,spawnStrategy , factoryRegistery , factoryHitBoxRegistery);
 
         waveManager = new WaveManager(enemytype , enemyManager);
         waveManager.loadWave("concreate_game/src/resources/data/waves");

@@ -2,9 +2,9 @@ package com.engine.model.projectile.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Rectangle;
 import com.engine.model.data.ProjectileData;
 import com.engine.model.entity.IAttackable;
+import com.engine.model.entity.components.hitBox.HitBox;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,17 +24,11 @@ public abstract class AbstractProjectile {
     /** Vitesse du projectile. */
     private int Speed;
 
-    /** Largeur du projectile. */
-    private float width;
-
-    /** Hauteur du projectile. */
-    private float height;
-
     /** Statut actif du projectile. Si {@code false}, le projectile est inactif. */
     private boolean active;
 
-    /** Rectangle représentant la hitbox du projectile. */
-    private Rectangle rect;
+    /** HitBox représentant la hitbox du projectile. */
+    private HitBox hitBox;
 
     /** Angle de rotation du projectile en degrés. */
     private float rotationAngle;
@@ -52,13 +46,11 @@ public abstract class AbstractProjectile {
      * @param direction La direction du projectile, représentée par un {@code Vector2}.
      * @param data     Les données spécifiques du projectile, contenant ses propriétés comme les dimensions et la vitesse.
      */
-    public AbstractProjectile(Vector2 position, Vector2 direction, ProjectileData data) {
+    public AbstractProjectile(Vector2 position, Vector2 direction, ProjectileData data , HitBox hitBox) {
         this.position = position;
         this.direction = direction;
-        this.width = data.getWidth();
-        this.height = data.getHeight();
+        this.hitBox = hitBox;
         this.active = true;
-        this.rect = new Rectangle(position.x, position.y, width, height);
         this.rotationAngle = direction.angleDeg();
         this.enemiesHit = new HashSet<>();
         this.Speed = data.getSpeed();
@@ -72,7 +64,7 @@ public abstract class AbstractProjectile {
     public void update() {
         if (active) {
             move();
-            setRect(new Rectangle(position.x, position.y, width, height));
+            getBbox().setPosition(position);
         }
     }
 
@@ -125,7 +117,7 @@ public abstract class AbstractProjectile {
      * @return La largeur du projectile.
      */
     public float getWidth() {
-        return width;
+        return getBbox().getWidth();
     }
 
     /**
@@ -134,7 +126,7 @@ public abstract class AbstractProjectile {
      * @return La hauteur du projectile.
      */
     public float getHeight() {
-        return height;
+        return getBbox().getHeight();
     }
 
     /**
@@ -142,17 +134,17 @@ public abstract class AbstractProjectile {
      *
      * @return Un objet {@code Rectangle} représentant la hitbox actuelle du projectile.
      */
-    public Rectangle getRect() {
-        return rect;
+    public HitBox getBbox() {
+        return hitBox;
     }
 
     /**
      * Met à jour la hitbox du projectile.
      *
-     * @param rect La nouvelle hitbox représentée par un objet {@code Rectangle}.
+     * @param hitBox La nouvelle hitbox représentée par un objet {@code Rectangle}.
      */
-    public void setRect(Rectangle rect) {
-        this.rect = rect;
+    public void setBbox(HitBox hitBox) {
+        this.hitBox = hitBox;
     }
 
     /**

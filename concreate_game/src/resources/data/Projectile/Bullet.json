@@ -1,5 +1,6 @@
 {
   "type": "Bullet",
+  "HitBoxType": "rectangle",
   "path": "concreate_game/src/assets/sprite/bullet.png",
   "width": 20,
   "height": 20,

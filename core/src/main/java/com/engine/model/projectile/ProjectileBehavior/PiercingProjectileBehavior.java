@@ -22,7 +22,7 @@ public class PiercingProjectileBehavior implements IProjectileBehavior {
         // Parcours des cibles attaquables
         for (IAttackable target : targets) {
             // Vérifie si la cible est touchée par le projectile et si elle n'a pas déjà été touchée
-            if (target.getBbox().overlaps(projectile.getRect()) && !projectile.hasHitAttackable(target)) {
+            if (target.getBbox().intersects(projectile.getBbox()) && !projectile.hasHitAttackable(target)) {
                 // Inflige des dégâts à la cible
                 target.getHealthComponent().damageHp((int) (damage + attacker.getStrengthComponent().getStrength()));
                 // Enregistre la cible comme étant touchée

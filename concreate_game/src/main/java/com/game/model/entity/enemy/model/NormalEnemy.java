@@ -1,6 +1,7 @@
 package com.game.model.entity.enemy.model;
 
 import com.badlogic.gdx.math.Vector2;
+import com.engine.model.entity.components.hitBox.HitBox;
 import com.engine.model.entity.enemy.model.Enemy;
 import com.engine.model.map.IMapCollisionChecker;
 import com.engine.model.data.EnemyData;
@@ -16,8 +17,8 @@ public class NormalEnemy extends Enemy {
     private int delay = 0;
     private boolean isColliding = false;
 
-    public NormalEnemy(Vector2 position, IMapCollisionChecker collisionManager, EnemyData data) {
-        super(position, collisionManager, data);
+    public NormalEnemy(Vector2 position, IMapCollisionChecker collisionManager, EnemyData data , HitBox hitBox) {
+        super(position, collisionManager, data , hitBox);
         SetMoveStrategy(new SteeringBehaviorStrategy(collisionManager));
     }
 
@@ -61,11 +62,12 @@ public class NormalEnemy extends Enemy {
         if (!targets.isEmpty()) {
             IAttackable target = targets.get(0); // Exemple simpliste : viser la première cible
 
-            Vector2 targetPosition = new Vector2(target.getBbox().x , target.getBbox().y);
+            Vector2 targetPosition = target.getBbox().getPosition().cpy();
             direction = moveStrategy.followPath(this, targetPosition);
             nextPosition.x = position.x + direction.x * speed * dt;
             nextPosition.y = position.y + direction.y * speed * dt;
             setPosition(nextPosition);
+
         }
     }
 }

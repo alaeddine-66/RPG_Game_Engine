@@ -1,5 +1,6 @@
 {
   "id": "Hero",
+  "HitBoxType": "rectangle",
   "startPosition": {
     "x": 0 ,
     "y":0

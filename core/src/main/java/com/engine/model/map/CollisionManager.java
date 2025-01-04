@@ -1,14 +1,14 @@
 package com.engine.model.map;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.engine.model.entity.components.hitBox.HitBox;
 
 import java.util.List;
 
 public class CollisionManager implements IMapCollisionChecker{
 
-    private final List<Rectangle> collisionObjects;
+    private final List<HitBox> collisionObjects;
     private final int mapWidth;
     private final int mapHeight;
     private final MapLoader gameMap;
@@ -41,10 +41,9 @@ public class CollisionManager implements IMapCollisionChecker{
     }
 
     @Override
-    public boolean isCollision(Rectangle rect1, Rectangle rect2) {
-        return rect2.overlaps(rect1);
+    public boolean isCollision(HitBox hitBox1, HitBox hitBox2) {
+        return hitBox1.intersects(hitBox2);
     }
-
 
     /**
      * Vérifie si un rectangle donné entre en collision avec des objets de la carte.
@@ -53,8 +52,8 @@ public class CollisionManager implements IMapCollisionChecker{
      * @return true si une collision est détectée, false sinon.
      */
     @Override
-    public boolean checkCollisionWithObjects(Rectangle rect) {
-        for (Rectangle object : collisionObjects) {
+    public boolean checkCollisionWithObjects(HitBox rect) {
+        for (HitBox object : collisionObjects) {
             if (isCollision(rect, object)) {
                 return true; // Collision détectée
             }
@@ -63,31 +62,34 @@ public class CollisionManager implements IMapCollisionChecker{
     }
 
     @Override
-    public boolean isOutOfBounds(Rectangle rect) {
-        return rect.x < 0 || rect.x + rect.width > mapWidth ||
-            rect.y < 0 || rect.y + rect.height > mapHeight;
+    public boolean isOutOfBounds(HitBox hitBox) {
+        return hitBox.getPosition().x < 0 || hitBox.getPosition().x + hitBox.getWidth() > mapWidth ||
+            hitBox.getPosition().y < 0 || hitBox.getPosition().y + hitBox.getHeight() > mapHeight;
     }
 
-    @Override
-    public void resolveCollisions(Vector2 position, Vector2 direction, int width, int height) {
-        Rectangle bbox = new Rectangle(position.x, position.y, width, height);
-        while (checkCollisionWithObjects(bbox)) {
+    public void resolveCollisions(HitBox hitBox, Vector2 position, Vector2 direction) {
+
+        HitBox newHitBox = hitBox.copy(position.x, position.y);
+
+        while (checkCollisionWithObjects(newHitBox)){
             position.x -= direction.x;
             position.y -= direction.y;
-            bbox.setPosition(position.x, position.y);
+            newHitBox.setPosition(position);
         }
-
-        clampPosition(position, width, height);
+        // Appliquer la position ajustée
+        hitBox.setPosition(position);
+        clampPosition(position, hitBox.getWidth(), hitBox.getHeight());
     }
 
-    public void clampPosition(Vector2 position, int width, int height) {
+
+    public void clampPosition(Vector2 position, float width, float height) {
         position.x = MathUtils.clamp(position.x, 0, mapWidth - width);
         position.y = MathUtils.clamp(position.y, 0, mapHeight - height);
     }
 
     // Vérifie si une position est dans une zone restreinte
     @Override
-    public boolean isInRestrictedZone(Rectangle bbox) {
+    public boolean isInRestrictedZone(HitBox bbox) {
         return checkCollisionWithObjects(bbox) || isOutOfBounds(bbox);
     }
 

@@ -2,18 +2,17 @@ package com.engine.model.entity.components.hitBox;
 
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.List;
+
 public interface IHitBox {
 
-    boolean intersects(IHitBox other);
+    boolean intersects(HitBox other);
 
     boolean contains(Vector2 point);
 
-    void updateHitBox(Vector2 position , Vector2 size);
+    HitBox copy(float x, float y);
 
-    Vector2 getPosition();
+    List<int[]> getOccupiedTiles(int tileWidth, int tileHeight);
 
-    Vector2 getSize();
-
-    IHitBox copy(float x, float y);
 
 }

@@ -2,6 +2,7 @@ package com.game.model.entity.player;
 
 import com.engine.controller.IInputHandler;
 import com.engine.model.entity.IAttackable;
+import com.engine.model.entity.components.hitBox.HitBox;
 import com.engine.model.entity.player.ICombat;
 import com.engine.model.data.PlayerData;
 import com.engine.model.entity.player.IMovement;
@@ -11,8 +12,8 @@ import java.util.List;
 
 public class BasicPlayer extends Player {
 
-    public BasicPlayer(PlayerData playerData, IInputHandler inputHandler, IMovement movement, ICombat combat) {
-        super(playerData, inputHandler, movement, combat);
+    public BasicPlayer(PlayerData playerData, IInputHandler inputHandler, IMovement movement, ICombat combat , HitBox hitbox) {
+        super(playerData, inputHandler, movement, combat, hitbox);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class BasicPlayer extends Player {
         if (moveX==1) facingRight = true;
         else if(moveX==-1) facingRight = false;
 
-        setPosition(movement.move(position, moveX, moveY, dt, (int) boundingBox.width, (int) boundingBox.height));
+        setPosition(movement.move(position, moveX, moveY, dt));
         getWeapon().setRotationAngle(getRotationAngle());
     }
 

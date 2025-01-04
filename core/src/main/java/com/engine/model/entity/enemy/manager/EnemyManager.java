@@ -1,6 +1,7 @@
 package com.engine.model.entity.enemy.manager;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.engine.model.entity.components.hitBox.HitBox;
+import com.engine.model.entity.components.hitBox.factory.HitBoxFactory;
 import com.engine.model.resource.FactoryProvider;
 import com.engine.model.entity.enemy.model.Enemy;
 import com.engine.model.entity.enemy.spawn.SpawnPositionStrategy;
@@ -15,31 +16,36 @@ import java.util.List;
 
 public class EnemyManager {
     private final IMapCollisionChecker collisionChecker;
-    private final FactoryProvider<AbstractEnemyBuilder> factoryProvider;
+    private final FactoryProvider<AbstractEnemyBuilder> EnemyfactoryProvider;
+    private final FactoryProvider<HitBoxFactory> HitBoxfactoryProvider;
     private SpawnPositionStrategy spawnStrategy;
+    private HitBox hitBox;
 
     public EnemyManager(IMapCollisionChecker collisionChecker,
                         SpawnPositionStrategy spawnStrategy,
-                        FactoryProvider<AbstractEnemyBuilder> factoryProvider) {
+                        FactoryProvider<AbstractEnemyBuilder> EnemyfactoryProvider,
+                        FactoryProvider<HitBoxFactory> HitBoxfactoryProvider) {
         this.collisionChecker = collisionChecker;
         this.spawnStrategy = spawnStrategy;
-        this.factoryProvider = factoryProvider;
+        this.EnemyfactoryProvider = EnemyfactoryProvider;
+        this.HitBoxfactoryProvider = HitBoxfactoryProvider;
     }
 
     // Factory pour créer des ennemis
     public List<Enemy> generateEnemies(int numberOfEnemies, EnemyData data) {
         List<Enemy> enemies = new ArrayList<>();
+        Vector2 size = new Vector2(data.getWidth() , data.getHeight());
         for (int i = 0; i < numberOfEnemies; i++) {
             Vector2 spawnPos;
             do {
                 spawnPos = spawnStrategy.generateSpawnPosition(data);
-            } while (collisionChecker.isInRestrictedZone(new Rectangle(spawnPos.x, spawnPos.y, data.getWidth(), data.getHeight())));
+                hitBox = HitBoxfactoryProvider.getFactory(data.getHitBoxType()).createHitBox(spawnPos, size);
+            } while (collisionChecker.isInRestrictedZone(hitBox));
 
-            AbstractEnemyBuilder factory = factoryProvider.getFactory(data.getId());
-
-
+            AbstractEnemyBuilder factory = EnemyfactoryProvider.getFactory(data.getId());
             enemies.add(factory
                 .withPosition(spawnPos)
+                .withHitBox(hitBox)
                 .build()
             );
         }

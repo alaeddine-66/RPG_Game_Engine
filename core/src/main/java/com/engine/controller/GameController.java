@@ -31,8 +31,8 @@ public class GameController {
         cam.unproject(mouseWorldPosition);  // Convertit les coordonnées écran en coordonnées monde
 
         // Calculer l'angle de rotation vers la souris
-        float angle = MathUtils.atan2(mouseWorldPosition.y - (playerPos.y+player.getHeight()/2) ,
-            mouseWorldPosition.x - ( playerPos.x + player.getWidth()/2) )  * MathUtils.radiansToDegrees;
+        float angle = MathUtils.atan2(mouseWorldPosition.y - (playerPos.y+player.getBbox().getHeight()/2) ,
+            mouseWorldPosition.x - ( playerPos.x + player.getBbox().getWidth()/2) )  * MathUtils.radiansToDegrees;
 
         // Mettre à jour l'angle de rotation dans le modèle joueur
         player.setRotationAngle(angle);

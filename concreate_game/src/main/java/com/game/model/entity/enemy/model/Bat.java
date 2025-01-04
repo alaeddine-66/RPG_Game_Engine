@@ -3,6 +3,7 @@ package com.game.model.entity.enemy.model;
 import com.badlogic.gdx.math.Vector2;
 import com.engine.model.data.EnemyData;
 import com.engine.model.entity.IAttackable;
+import com.engine.model.entity.components.hitBox.HitBox;
 import com.engine.model.entity.enemy.model.Enemy;
 import com.engine.model.map.IMapCollisionChecker;
 
@@ -13,8 +14,8 @@ public class Bat extends Enemy {
 
     private int delay = 0;
 
-    public Bat(Vector2 position, IMapCollisionChecker collisionChecker, EnemyData data) {
-        super(position, collisionChecker, data);
+    public Bat(Vector2 position, IMapCollisionChecker collisionChecker, EnemyData data, HitBox hitBox) {
+        super(position, collisionChecker, data,hitBox);
     }
 
     @Override
@@ -44,12 +45,12 @@ public class Bat extends Enemy {
     public void move(List<IAttackable> targets, float dt) {
         if (!targets.isEmpty()) {
             IAttackable target = targets.get(0); // Exemple : viser la première cible
-            Vector2 targetPosition = new Vector2(target.getBbox().x , target.getBbox().y);
+            Vector2 targetPosition = target.getBbox().getPosition().cpy();
             Vector2 targetDirection = targetPosition.sub(this.position).nor();
             setdirection(targetDirection);
             this.position.x += targetDirection.x * speed * dt;
             this.position.y += targetDirection.y * speed * dt;
-            updateBoundingBox();
+            getBbox().setPosition(position);
         }
     }
 }

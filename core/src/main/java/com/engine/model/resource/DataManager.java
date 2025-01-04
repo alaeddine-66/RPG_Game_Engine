@@ -6,9 +6,8 @@ import com.engine.model.data.EnemyData;
 import com.engine.model.data.ItemData;
 import com.engine.model.data.ProjectileData;
 import com.engine.model.data.WeaponData;
-import com.engine.model.entity.enemy.factory.AbstractEnemyBuilder;
 import com.engine.model.weapon.factory.AbstractWeaponBuilder;
-import com.engine.model.projectile.factory.IProjectileFactory;
+import com.engine.model.projectile.factory.ProjectileFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ public class DataManager {
     private static volatile DataManager instance ;
     private final HashMap<String, EnemyData> enemyDataMap;
     private final Map<String, ProjectileData> projectileMap;
-    private final Map<String , IProjectileFactory> projectilefactory;
+    private final Map<String , ProjectileFactory> projectilefactory;
     private final HashMap<String, WeaponData> weaponDataMap;
     private final Map<String, AbstractWeaponBuilder> weaponFactory;
     private final Map<String, ItemData> itemsData;
@@ -64,11 +63,11 @@ public class DataManager {
         return projectileMap.get(type);
     }
 
-    public void loadProjectileFactory(String type , IProjectileFactory factory) {
+    public void loadProjectileFactory(String type , ProjectileFactory factory) {
         projectilefactory.put(type,factory);
     }
 
-    public IProjectileFactory getProjectileFactory(String type) {
+    public ProjectileFactory getProjectileFactory(String type) {
         return projectilefactory.get(type);
     }
 

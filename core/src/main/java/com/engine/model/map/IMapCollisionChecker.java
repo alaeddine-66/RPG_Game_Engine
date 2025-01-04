@@ -1,7 +1,7 @@
 package com.engine.model.map;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.engine.model.entity.components.hitBox.HitBox;
 
 /**
  * Interface responsable de la gestion des collisions dans le jeu, notamment avec les tuiles de la carte et les objets du monde.
@@ -47,31 +47,31 @@ public interface IMapCollisionChecker {
      * @param rect2 le second rectangle à vérifier.
      * @return {@code true} si les deux rectangles se chevauchent, sinon {@code false}.
      */
-    boolean isCollision(Rectangle rect1, Rectangle rect2);
+    boolean isCollision(HitBox rect1, HitBox rect2);
 
     /**
      * Vérifie si l'entité représentée par le rectangle donné entre en collision avec des objets sur la carte.
      *
-     * @param entity le rectangle représentant l'entité à vérifier.
+     * @param hitBox le hitbox représentant l'entité à vérifier.
      * @return {@code true} si l'entité entre en collision avec un objet, sinon {@code false}.
      */
-    boolean checkCollisionWithObjects(Rectangle entity);
+    boolean checkCollisionWithObjects(HitBox hitBox);
 
     /**
      * Vérifie si le rectangle donné est hors des limites de la carte.
      *
-     * @param rect le rectangle à vérifier.
+     * @param hitBox le HitBox à vérifier.
      * @return {@code true} si le rectangle est en dehors des limites de la carte, sinon {@code false}.
      */
-    boolean isOutOfBounds(Rectangle rect);
+    boolean isOutOfBounds(HitBox hitBox);
 
     /**
      * Vérifie si le rectangle donné se trouve dans une zone restreinte (par exemple, une zone interdite).
      *
-     * @param rect le rectangle à vérifier.
+     * @param hitBox le hitBox à vérifier.
      * @return {@code true} si le rectangle est dans une zone restreinte, sinon {@code false}.
      */
-    boolean isInRestrictedZone(Rectangle rect);
+    boolean isInRestrictedZone(HitBox hitBox);
 
     /**
      * Résout les collisions en ajustant la position de l'entité en fonction de la direction donnée.
@@ -81,8 +81,6 @@ public interface IMapCollisionChecker {
      *
      * @param position la position actuelle de l'entité.
      * @param direction la direction du déplacement de l'entité.
-     * @param width la largeur de l'entité.
-     * @param height la hauteur de l'entité.
      */
-    void resolveCollisions(Vector2 position, Vector2 direction, int width, int height);
+    void resolveCollisions(HitBox hitBox, Vector2 position, Vector2 direction);
 }

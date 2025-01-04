@@ -31,7 +31,7 @@ public class PursuitProjectileBehavior implements IProjectileBehavior {
         float minDistance = Float.MAX_VALUE;
 
         for (IAttackable target : targets) {
-            float distance = projectile.getPosition().dst(new Vector2(target.getBbox().x , target.getBbox().y ));
+            float distance = projectile.getPosition().cpy().dst(target.getBbox().getPosition().cpy());
             if (distance < minDistance) {
                 minDistance = distance;
                 closestTarget = target;
@@ -41,8 +41,8 @@ public class PursuitProjectileBehavior implements IProjectileBehavior {
 
         // Ajuster la direction du projectile vers la cible la plus proche
         if (closestTarget != null) {
-            Vector2 targetPos = new Vector2(closestTarget.getBbox().x , closestTarget.getBbox().y );
-            Vector2 toTarget = targetPos.sub(projectile.getPosition());
+            Vector2 targetPos = closestTarget.getBbox().getPosition().cpy();
+            Vector2 toTarget = targetPos.sub(projectile.getPosition().cpy());
             float distanceToTarget = toTarget.len();
 
             if (distanceToTarget > 1.0f) { // Distance seuil pour éviter des oscillations
@@ -63,7 +63,7 @@ public class PursuitProjectileBehavior implements IProjectileBehavior {
 
         // Vérifier les collisions avec les cibles
         for (IAttackable target : targets) {
-            if (projectile.getRect().overlaps(target.getBbox())) {
+            if (projectile.getBbox().intersects(target.getBbox())) {
                 // Appliquer les dégâts à la cible
                 int totalDamage = (int) (damage + attacker.getStrengthComponent().getStrength());
                 target.getHealthComponent().damageHp(totalDamage);

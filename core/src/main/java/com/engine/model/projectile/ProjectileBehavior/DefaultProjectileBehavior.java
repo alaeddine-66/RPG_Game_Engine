@@ -21,7 +21,7 @@ public class DefaultProjectileBehavior implements IProjectileBehavior {
 
         // Parcourir les cibles pour vérifier une collision
         for (IAttackable target : targets) {
-            if (projectile.getRect().overlaps(target.getBbox())) {
+            if (projectile.getBbox().intersects(target.getBbox())) {
                 // Appliquer les dégâts en ajoutant la force du joueur
                 int totalDamage = (int) (damage + attacker.getStrengthComponent().getStrength());
                 target.getHealthComponent().damageHp(totalDamage);

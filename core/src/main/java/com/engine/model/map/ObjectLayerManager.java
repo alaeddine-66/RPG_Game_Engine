@@ -5,17 +5,23 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
+import com.engine.model.entity.components.hitBox.HitBox;
+import com.engine.model.entity.components.hitBox.IHitBox;
+import com.engine.model.map.MapObjects.HitBoxGenerationStrategy;
+import com.engine.model.map.MapObjects.HitBoxGenerationStrategyRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectLayerManager {
-    private final List<Rectangle> collisionObjects;
+    private final List<HitBox> collisionObjects;
     private final List<int[]> objectCoordinates;
+    private final HitBoxGenerationStrategyRegistry ObstaclesRegistry;
 
-    public ObjectLayerManager(TiledMap map, int tileWidth, int tileHeight) {
+    public ObjectLayerManager(TiledMap map, int tileWidth, int tileHeight , HitBoxGenerationStrategyRegistry ObstaclesRegistry ) {
         this.collisionObjects = new ArrayList<>();
         this.objectCoordinates = new ArrayList<>();
+        this.ObstaclesRegistry = ObstaclesRegistry;
         loadObjectLayer(map, tileWidth, tileHeight);
     }
 
@@ -35,28 +41,19 @@ public class ObjectLayerManager {
 
         for (MapLayer objectLayer : objectLayers) {
             for (MapObject mapObject : objectLayer.getObjects()) {
-                if (mapObject instanceof RectangleMapObject) {
-                    Rectangle rect = ((RectangleMapObject) mapObject).getRectangle();
-                    collisionObjects.add(rect);
 
-                    int tileCountX = (int) Math.ceil(rect.width / tileWidth);
-                    int tileCountY = (int) Math.ceil(rect.height / tileHeight);
-
-                    for (int i = 0; i < tileCountX; i++) {
-                        for (int j = 0; j < tileCountY; j++) {
-                            int colIndex = (int) Math.floor((rect.x + i * tileWidth) / tileWidth);
-                            int rowIndex = (int) Math.floor((rect.y + j * tileHeight) / tileHeight);
-
-                            objectCoordinates.add(new int[]{colIndex, rowIndex});
-                        }
-                    }
+                HitBoxGenerationStrategy strategy = ObstaclesRegistry.getStrategy(mapObject.getClass());
+                if (strategy != null) {
+                    HitBox hitBox = strategy.createHitBox(mapObject);
+                    collisionObjects.add(hitBox);
+                    objectCoordinates.addAll(hitBox.getOccupiedTiles(tileWidth,tileHeight));
                 }
             }
         }
     }
 
 
-    public List<Rectangle> getCollisionObjects() {
+    public List<HitBox> getCollisionObjects() {
         return new ArrayList<>(collisionObjects);
     }
 

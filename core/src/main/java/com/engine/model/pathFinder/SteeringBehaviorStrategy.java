@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.engine.model.entity.Entity;
+import com.engine.model.entity.components.hitBox.HitBox;
 import com.engine.model.map.IMapCollisionChecker;
 
 public class SteeringBehaviorStrategy implements IMoveStrategy {
@@ -21,7 +22,7 @@ public class SteeringBehaviorStrategy implements IMoveStrategy {
         // Étape 2 : Calculer la prochaine position
         float AheadX = enemy.getPosition().x + targetDirection.x * enemy.getSpeed() * Gdx.graphics.getDeltaTime() ;
         float AheadY = enemy.getPosition().y + targetDirection.y * enemy.getSpeed() * Gdx.graphics.getDeltaTime();
-        Rectangle nextPosition = new Rectangle(AheadX , AheadY , enemy.getBbox().width, enemy.getBbox().height);
+        HitBox nextPosition = enemy.getBbox().copy(enemy.getPosition().x , enemy.getPosition().y);
 
         // Étape 3 : Vérifier les collisions et les bordures
         boolean collisionWithObstacle = collisionManager.checkCollisionWithObjects(nextPosition);

@@ -7,7 +7,8 @@ import com.engine.view.hud.AbstractHUDComponents;
 
 public class WaveInfoComponent extends AbstractHUDComponents {
 
-    private WaveManager waveManager;
+    private final WaveManager waveManager;
+
     public WaveInfoComponent(SpriteBatch batch, OrthographicCamera camera, WaveManager waveManager) {
         super(batch, camera);
         this.waveManager = waveManager;
@@ -20,7 +21,7 @@ public class WaveInfoComponent extends AbstractHUDComponents {
         font.getData().setScale(1.5f); // Double la taille du texte
 
         batch.begin();
-        font.draw(batch, "Wave: " + waveManager.getCurrentWave() + " / " + waveManager.getTotalWaves(), waveX, waveY);
+        font.draw(batch, "Wave: " + waveManager.getCurrentWave().getWaveNumber() + " / " + waveManager.getTotalWaves(), waveX, waveY);
         batch.end();
 
         font.getData().setScale(1f); // Double la taille du texte

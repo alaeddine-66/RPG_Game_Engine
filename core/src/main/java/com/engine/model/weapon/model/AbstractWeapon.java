@@ -86,8 +86,8 @@ public abstract class  AbstractWeapon {
             if (projectile.isActive()) {
                 projectileBehavior.updateProjectile(projectile, damage, targets, attacker);
 
-                if (collisionManager.checkCollisionWithObjects(projectile.getRect()) ||
-                    collisionManager.isOutOfBounds(projectile.getRect())) {
+                if (collisionManager.checkCollisionWithObjects(projectile.getBbox()) ||
+                    collisionManager.isOutOfBounds(projectile.getBbox())) {
                     projectile.deactivate();
                 }
             }

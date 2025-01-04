@@ -1,5 +1,6 @@
 {
   "id": "Normal",
+  "HitBoxType": "rectangle",
   "idlePath": "concreate_game/src/assets/sprite/zombie_idle.png",
   "movePath": "concreate_game/src/assets/sprite/zombie_mvt.png",
   "attackPath": "concreate_game/src/assets/sprite/zombie_attack.png",

@@ -1,7 +1,7 @@
 package com.engine.model.weapon.fire;
 
 import com.badlogic.gdx.math.Vector2;
-import com.engine.model.projectile.factory.IProjectileFactory;
+import com.engine.model.projectile.factory.ProjectileFactory;
 import com.engine.model.projectile.model.AbstractProjectile;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class MultiShotFireBehavior implements IFireBehavior {
     private int shotCount;
 
     /** La factory utilisée pour créer les projectiles. */
-    private IProjectileFactory projectileFactory;
+    private ProjectileFactory projectileFactory;
 
     /**
      * Constructeur permettant d'initialiser la factory de projectiles et le nombre de tirs.
@@ -26,7 +26,7 @@ public class MultiShotFireBehavior implements IFireBehavior {
      * @param factory   L'instance de {@code ProjectileFactory} utilisée pour générer les projectiles.
      * @param shotCount Le nombre de projectiles à tirer simultanément.
      */
-    public MultiShotFireBehavior(IProjectileFactory factory, int shotCount) {
+    public MultiShotFireBehavior(ProjectileFactory factory, int shotCount) {
         this.shotCount = shotCount;
         this.projectileFactory = factory;
     }
@@ -62,7 +62,9 @@ public class MultiShotFireBehavior implements IFireBehavior {
             );
 
             // Création du projectile via la factory
-            projectiles.add(projectileFactory.createProjectile(position.cpy(), velocity));
+            projectiles.add(projectileFactory.createProjectile(position.cpy(), velocity ,
+                projectileFactory.getHitBoxFactory().createHitBox(position.cpy() , projectileFactory.getSize())));
+
         }
 
         return projectiles;

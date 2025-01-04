@@ -45,7 +45,7 @@ public class PathfindingMoveStrategy implements IMoveStrategy {
             (int) (target.y / collisionChecker.getTileHeight())
         );
 
-        return pathfindingStrategy.findPath(startNode, endNode, (int) enemy.getBbox().width, (int) enemy.getBbox().height);
+        return pathfindingStrategy.findPath(startNode, endNode, (int) enemy.getBbox().getWidth(), (int) enemy.getBbox().getHeight());
     }
 
 

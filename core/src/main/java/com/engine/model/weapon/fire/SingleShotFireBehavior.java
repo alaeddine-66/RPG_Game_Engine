@@ -2,7 +2,7 @@ package com.engine.model.weapon.fire;
 
 import com.badlogic.gdx.math.Vector2;
 import com.engine.model.projectile.model.AbstractProjectile;
-import com.engine.model.projectile.factory.IProjectileFactory;
+import com.engine.model.projectile.factory.ProjectileFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +15,14 @@ import java.util.List;
 public class SingleShotFireBehavior implements IFireBehavior {
 
     /** La factory utilisée pour créer les projectiles. */
-    private IProjectileFactory projectileFactory;
+    private ProjectileFactory projectileFactory;
 
     /**
      * Constructeur permettant d'initialiser la factory de projectiles.
      *
      * @param factory L'instance de {@code ProjectileFactory} utilisée pour générer les projectiles.
      */
-    public SingleShotFireBehavior(IProjectileFactory factory) {
+    public SingleShotFireBehavior(ProjectileFactory factory) {
         this.projectileFactory = factory;
     }
 
@@ -46,7 +46,7 @@ public class SingleShotFireBehavior implements IFireBehavior {
         );
 
         // Création du projectile via la factory
-        projectiles.add(projectileFactory.createProjectile(position.cpy(), velocity));
+        projectiles.add(projectileFactory.createProjectile(position.cpy(), velocity , projectileFactory.getHitBoxFactory().createHitBox(position.cpy() , projectileFactory.getSize())));
 
         return projectiles;
     }

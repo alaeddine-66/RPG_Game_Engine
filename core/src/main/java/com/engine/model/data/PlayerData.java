@@ -2,6 +2,7 @@ package com.engine.model.data;
 
 public class PlayerData {
     private String id;
+    private String HitBoxType;
     private Position startPosition;
     private int width;
     private int height;
@@ -54,6 +55,10 @@ public class PlayerData {
     // Getters et Setters pour PlayerData
     public String getid() {
         return id;
+    }
+
+    public String getHitBoxType() {
+        return HitBoxType;
     }
 
     public Images getimages(){
