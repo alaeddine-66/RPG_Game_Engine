@@ -3,13 +3,15 @@
   "type": "Gun",
   "path": "concreate_game/src/assets/sprite/gin_02.png",
   "projectile": "Bullet",
-  "projectileBehavior": "default",
+  "projectileBehavior": "Default",
   "damage": 10,
   "fireRate": 50.0,
   "magazineCapacity": 10,
   "reloadTime": 10,
   "fireBehavior": "SingleShotFireBehavior",
-  "effectBehavior": "CooldownEffect",
+  "effectBehavior": "PowerBoostEffect",
   "extra": {
+    "boostMultiplier": 3,
+    "duration": 10
   }
 }

@@ -197,7 +197,6 @@ public abstract class  AbstractWeapon {
 
     public void DecreaseReloadTime(double percentage){
         this.reloadTime -= (int) (reloadTime * percentage);
-
     }
 
     public float getRotationAngle(){

@@ -31,9 +31,20 @@ import com.engine.model.entity.components.hitBox.factory.RectangleHitBoxFactory;
 import com.engine.model.entity.enemy.factory.AbstractEnemyBuilder;
 import com.engine.model.map.MapObjects.HitBoxGenerationStrategyRegistry;
 import com.engine.model.map.MapObjects.RectangleHitBoxGenerationStrategy;
+import com.engine.model.projectile.ProjectileBehavior.DefaultProjectileBehavior;
+import com.engine.model.projectile.ProjectileBehavior.IProjectileBehavior;
+import com.engine.model.projectile.ProjectileBehavior.factory.DefaultProjectileBehaviorFactory;
+import com.engine.model.projectile.ProjectileBehavior.factory.PiercingProjectileBehaviorFactory;
+import com.engine.model.projectile.ProjectileBehavior.factory.PursuitProjectileBehaviorFactory;
+import com.engine.model.projectile.effect.IEffectBehavior;
+import com.engine.model.projectile.effect.PowerBoostEffectFactory;
 import com.engine.model.resource.FactoryProvider;
 import com.engine.model.map.MapManager;
 import com.engine.model.resource.*;
+import com.engine.model.weapon.BehaviorRegistry;
+import com.engine.model.weapon.fire.IFireBehavior;
+import com.engine.model.weapon.fire.MultiShotFireBehaviorFactory;
+import com.engine.model.weapon.fire.SingleShotFireBehaviorFactory;
 import com.game.model.collectible.factory.CoinFactory;
 import com.game.model.collectible.factory.ExperienceFactory;
 import com.engine.model.entity.IAttackable;
@@ -200,7 +211,22 @@ public class Main extends ApplicationAdapter {
             factoryHitBoxRegistery.getFactory(DataManager.getInstance().getProjectileData("Bullet").getHitBoxType())));
         DataManager.getInstance().loadProjectileFactory("FireBall",new BulletFactory(DataManager.getInstance().getProjectileData("FireBall"),
             factoryHitBoxRegistery.getFactory(DataManager.getInstance().getProjectileData("FireBall").getHitBoxType())));
-        weapon = WeaponManager.createWeapon(playerData.getStartWeapon(),DataManager.getInstance().getAllWeaponData());
+
+        BehaviorRegistry<IFireBehavior> fireBehaviorRegistry = new BehaviorRegistry<>();
+        fireBehaviorRegistry.register("SingleShotFireBehavior", new SingleShotFireBehaviorFactory());
+        fireBehaviorRegistry.register("MultiShotFireBehavior", new MultiShotFireBehaviorFactory());
+
+        BehaviorRegistry<IEffectBehavior> EffectBehaviorRegistry = new BehaviorRegistry<>();
+        EffectBehaviorRegistry.register("PowerBoostEffect", new PowerBoostEffectFactory());
+
+
+        BehaviorRegistry<IProjectileBehavior> projectileBehaviorRegistry = new BehaviorRegistry<>();
+        projectileBehaviorRegistry.register("Default", new DefaultProjectileBehaviorFactory());
+        projectileBehaviorRegistry.register("Piercing", new PiercingProjectileBehaviorFactory());
+        projectileBehaviorRegistry.register("Pursuit", new PursuitProjectileBehaviorFactory());
+
+        WeaponManager weaponManager = new WeaponManager(fireBehaviorRegistry,EffectBehaviorRegistry,projectileBehaviorRegistry);
+        weapon = weaponManager.createWeapon(playerData.getStartWeapon(),DataManager.getInstance().getAllWeaponData());
 
         Vector2 PlayerPosition = new Vector2(playerData.getStartPosition().getX(), playerData.getStartPosition().getY());
         Vector2 PlayerSize = new Vector2(playerData.getWidth() , playerData.getHeight());

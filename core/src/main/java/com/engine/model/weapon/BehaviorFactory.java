@@ -1,4 +1,7 @@
 package com.engine.model.weapon;
 
-public class BehaviorFactory {
+import com.engine.model.data.WeaponData;
+
+public interface BehaviorFactory<T> {
+    T create(WeaponData data);
 }

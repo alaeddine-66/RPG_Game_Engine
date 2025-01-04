@@ -1,4 +1,13 @@
 package com.engine.model.projectile.ProjectileBehavior.factory;
 
-public class DefaultProjectileBehaviorFactory {
+import com.engine.model.data.WeaponData;
+import com.engine.model.projectile.ProjectileBehavior.DefaultProjectileBehavior;
+import com.engine.model.projectile.ProjectileBehavior.IProjectileBehavior;
+import com.engine.model.weapon.BehaviorFactory;
+
+public class DefaultProjectileBehaviorFactory implements BehaviorFactory<IProjectileBehavior> {
+    @Override
+    public IProjectileBehavior create(WeaponData data) {
+        return new DefaultProjectileBehavior();
+    }
 }

@@ -3,6 +3,7 @@
   "type": "Crossbow",
   "path": "concreate_game/src/assets/sprite/gin_02.png",
   "projectile": "Bullet",
+  "projectileBehavior": "Pursuit",
   "damage": 15,
   "fireRate": 0.8,
   "magazineCapacity": 10,

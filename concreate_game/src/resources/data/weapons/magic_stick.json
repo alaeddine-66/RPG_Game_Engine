@@ -3,13 +3,16 @@
   "type": "Magic",
   "path": "concreate_game/src/assets/sprite/gin_02.png",
   "projectile": "FireBall",
+  "projectileBehavior": "Pursuit",
   "damage": 20,
   "fireRate": 0.5,
   "magazineCapacity": 10,
   "reloadTime": 10,
   "fireBehavior": "SingleShotFireBehavior",
-  "effectBehavior": "CooldownEffect",
+  "effectBehavior": "PowerBoostEffect",
   "extra": {
-    "cooldownThreshold": 10
+    "cooldownThreshold": 10,
+    "boostMultiplier": 3,
+    "duration": 10
   }
 }
