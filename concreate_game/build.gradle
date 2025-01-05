@@ -1,5 +1,5 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.name = appName + '-concreate_game'
+eclipse.project.name =  'concreate_game'
 
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
