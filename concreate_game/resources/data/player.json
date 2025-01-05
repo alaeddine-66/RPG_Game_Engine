@@ -8,8 +8,8 @@
   "width": 32,
   "height": 32,
   "images": {
-    "idle_g": "concreate_game/src/assets/sprite/main-perso-g.png",
-    "idle_d": "concreate_game/src/assets/sprite/main-perso-d.png"
+    "idle_g": "concreate_game/assets/sprite/main-perso-g.png",
+    "idle_d": "concreate_game/assets/sprite/main-perso-d.png"
   },
   "StartWeapon": "Gun",
   "Strength": 10,

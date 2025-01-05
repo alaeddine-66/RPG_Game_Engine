@@ -1,7 +1,7 @@
 {
   "name": "Magic Stick",
   "type": "Magic",
-  "path": "concreate_game/src/assets/sprite/gin_02.png",
+  "path": "concreate_game/assets/sprite/gin_02.png",
   "projectile": "FireBall",
   "projectileBehavior": "Pursuit",
   "damage": 20,

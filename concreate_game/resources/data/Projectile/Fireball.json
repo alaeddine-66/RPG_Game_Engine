@@ -1,7 +1,7 @@
 {
   "type": "FireBall",
   "HitBoxType": "rectangle",
-  "path": "concreate_game/src/assets/sprite/FireBall.png",
+  "path": "concreate_game/assets/sprite/FireBall.png",
   "width": 35,
   "height": 35,
   "speed": 300
