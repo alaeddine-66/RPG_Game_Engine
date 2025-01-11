@@ -46,7 +46,7 @@ Si vous n'avez pas git, vous pouvez télécharger le projet directement en tant 
 
 Après avoir téléchargé le projet, configurez votre répertoire de travail pour qu'il pointe vers le dossier concreate_game.
 
-+ Pour IntelliJ IDEA :
+* Pour IntelliJ IDEA :
 
   1. Ouvrez le projet dans IntelliJ.
   
@@ -54,7 +54,7 @@ Après avoir téléchargé le projet, configurez votre répertoire de travail po
   
   3. Modifiez la Working Directory pour qu'elle pointe vers RPG_Game_Engine/concreate_game.
 
-+ Pour Eclipse :
+* Pour Eclipse :
 
   1. Cliquez avec le bouton droit sur la configuration de lancement dans Eclipse.
   
@@ -62,7 +62,7 @@ Après avoir téléchargé le projet, configurez votre répertoire de travail po
   
   3. Changez le champ Working Directory pour RPG_Game_Engine/concreate_game.
 
-+ Pour Ligne de Commande :
+* Pour Ligne de Commande :
 
   Avant de lancer le jeu, positionnez-vous dans le dossier concreate_game :
   ```
