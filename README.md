@@ -31,13 +31,46 @@ Avant de compiler et d'exécuter le projet, assurez-vous d'avoir :
 
 ### Étape 1 : Cloner le Dépôt
 
-Clonez ce projet dans votre répertoire local :
+Option 1 : Cloner le Dépôt
+
+Vous pouvez cloner le projet en utilisant git :
 ```
 git clone https://github.com/alaeddine-66/RPG_Game_Engine.git
 cd RPG_Game_Engine
 ```
+Option 2 : Télécharger Directement
 
-### Étape 2 : Exécuter un Jeu Exemple
+Si vous n'avez pas git, vous pouvez télécharger le projet directement en tant que fichier ZIP depuis GitHub. Une fois téléchargé, extrayez le contenu et naviguez dans le dossier RPG_Game_Engine
+
+### Étape 2 : Configurer le Répertoire de Travail
+
+Après avoir téléchargé le projet, configurez votre répertoire de travail pour qu'il pointe vers le dossier concreate_game.
+
++ Pour IntelliJ IDEA :
+
+1. Ouvrez le projet dans IntelliJ.
+
+2. Accédez aux Configurations d'Exécution (Run Configurations).
+
+3. Modifiez la Working Directory pour qu'elle pointe vers RPG_Game_Engine/concreate_game.
+
++ Pour Eclipse :
+
+1. Cliquez avec le bouton droit sur la configuration de lancement dans Eclipse.
+
+2. Accédez à l'onglet Arguments.
+
+3. Changez le champ Working Directory pour RPG_Game_Engine/concreate_game.
+
++ Pour Ligne de Commande :
+
+Avant de lancer le jeu, positionnez-vous dans le dossier concreate_game :
+```
+cd concreate_game
+```
+
+
+### Étape 3 : Exécuter un Jeu Exemple
 
 Un jeu exemple est inclus dans le dossier concreate_game. Vous pouvez le lancer directement pour voir le moteur en action.
 
