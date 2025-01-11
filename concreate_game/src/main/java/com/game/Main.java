@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -134,37 +135,37 @@ public class Main extends ApplicationAdapter {
 
     public void initilaizeData(){
         //Load Enemies Data
-        DataManager.getInstance().loadEnemyData("Normal" , "concreate_game/resources/data/enemies/Normal.json");
-        DataManager.getInstance().loadEnemyData("Magician" , "concreate_game/resources/data/enemies/Magician.json");
-        DataManager.getInstance().loadEnemyData("Necromancer" , "concreate_game/resources/data/enemies/Necromancer.json");
-        DataManager.getInstance().loadEnemyData("Bat" , "concreate_game/resources/data/enemies/Bat.json");
+        DataManager.getInstance().loadEnemyData("Normal" , "resources/data/enemies/Normal.json");
+        DataManager.getInstance().loadEnemyData("Magician" , "resources/data/enemies/Magician.json");
+        DataManager.getInstance().loadEnemyData("Necromancer" , "resources/data/enemies/Necromancer.json");
+        DataManager.getInstance().loadEnemyData("Bat" , "resources/data/enemies/Bat.json");
 
         //Load Projectiles Data
-        DataManager.getInstance().loadProjectileData("Bullet", "concreate_game/resources/data/Projectile/Bullet.json");
-        DataManager.getInstance().loadProjectileData("FireBall", "concreate_game/resources/data/Projectile/FireBall.json");
+        DataManager.getInstance().loadProjectileData("Bullet", "resources/data/Projectile/Bullet.json");
+        DataManager.getInstance().loadProjectileData("FireBall", "resources/data/Projectile/FireBall.json");
 
         //Load Weapons Data
-        DataManager.getInstance().loadWeaponData("Gun" , "concreate_game/resources/data/weapons/gun.json");
-        DataManager.getInstance().loadWeaponData("Magic Stick" , "concreate_game/resources/data/weapons/magic_stick.json");
-        DataManager.getInstance().loadWeaponData("Basic Crossbow" , "concreate_game/resources/data/weapons/crossbow.json");
+        DataManager.getInstance().loadWeaponData("Gun" , "resources/data/weapons/gun.json");
+        DataManager.getInstance().loadWeaponData("Magic Stick" , "resources/data/weapons/magic_stick.json");
+        DataManager.getInstance().loadWeaponData("Basic Crossbow" , "resources/data/weapons/crossbow.json");
 
         //Load Weapons factories
         DataManager.getInstance().loadWeaponFactory("Gun" , new GunFactory());
         DataManager.getInstance().loadWeaponFactory("Magic Stick" , new MagicStickFactory());
 
         //Load Items Data
-        DataManager.getInstance().loadItemsData("coin", "concreate_game/resources/data/collectible/Coin.json");
-        DataManager.getInstance().loadItemsData("exp", "concreate_game/resources/data/collectible/exp.json");
+        DataManager.getInstance().loadItemsData("coin", "resources/data/collectible/Coin.json");
+        DataManager.getInstance().loadItemsData("exp", "resources/data/collectible/exp.json");
 
         //Load Items factories
         DataManager.getInstance().loadItemsFactories("coin" , new CoinFactory());
         DataManager.getInstance().loadItemsFactories("exp" , new ExperienceFactory());
 
         //Load BackgroundMusic
-        AudioManager.getInstance().loadBackGroundMusic("concreate_game/resources/sounds/Dark Descent.mp3");
-        AudioManager.getInstance().loadSounds("reload" ,"concreate_game/resources/sounds/reload.mp3" );
-        AudioManager.getInstance().loadSounds("zombie" ,"concreate_game/resources/sounds/zombie-1.mp3" );
-        AudioManager.getInstance().loadSounds("weaponAttack" ,"concreate_game/resources/sounds/weaponAttack.mp3" );
+        AudioManager.getInstance().loadBackGroundMusic("resources/sounds/Dark Descent.mp3");
+        AudioManager.getInstance().loadSounds("reload" ,"resources/sounds/reload.mp3" );
+        AudioManager.getInstance().loadSounds("zombie" ,"resources/sounds/zombie-1.mp3" );
+        AudioManager.getInstance().loadSounds("weaponAttack" ,"resources/sounds/weaponAttack.mp3" );
 
     }
 
@@ -176,7 +177,7 @@ public class Main extends ApplicationAdapter {
 
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        skin = new Skin(Gdx.files.internal("concreate_game/resources/data/Skins/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("data/Skins/uiskin.json"));
         AudioManager.getInstance().playMusic();
         initilaizeData();
 
@@ -191,12 +192,11 @@ public class Main extends ApplicationAdapter {
         inputHandler.bindAction("shoot" , "Space");
         inputHandler.bindAction("inventory" , "I");
 
-
         batch = new SpriteBatch();
 
         HitBoxGenerationStrategyRegistry ObstaclesRegistry = new HitBoxGenerationStrategyRegistry();
         ObstaclesRegistry.registerStrategy(RectangleMapObject.class , new RectangleHitBoxGenerationStrategy());
-        gameMap = new MapManager("concreate_game/assets/maps/map1/map.tmx" , ObstaclesRegistry); // Charger une carte
+        gameMap = new MapManager("assets/maps/maps2/map.tmx" , ObstaclesRegistry); // Charger une carte
         collisionManager = new CollisionManager(gameMap.getCurrentMapLoader());
 
         FactoryProvider<HitBoxFactory> factoryHitBoxRegistery = new FactoryProvider();
@@ -205,7 +205,7 @@ public class Main extends ApplicationAdapter {
 
 
         // Load player and Weapon data
-        PlayerData playerData = DataManager.loadJsonData("concreate_game/resources/data/player.json", PlayerData.class);
+        PlayerData playerData = DataManager.loadJsonData("resources/data/player.json", PlayerData.class);
         //Load Projectiles Factories
         DataManager.getInstance().loadProjectileFactory("Bullet",new BulletFactory(DataManager.getInstance().getProjectileData("Bullet") ,
             factoryHitBoxRegistery.getFactory(DataManager.getInstance().getProjectileData("Bullet").getHitBoxType())));
@@ -255,7 +255,7 @@ public class Main extends ApplicationAdapter {
         droppedItemsView = new DroppedItemView(batch, droppedItemManager.getDroppedItems());
 
         upgradeManager = new UpgradeManager();
-        upgradeManager.loadUpgrades("concreate_game/resources/data/weapons/weapon_upgrades.json"); // Charge les améliorations
+        upgradeManager.loadUpgrades("resources/data/weapons/weapon_upgrades.json"); // Charge les améliorations
         upgradeManager.addEffect("damage_increase" , new DamageIncreaseEffect());
         upgradeManager.addEffect("fire_rate" , new FireRateEffect());
         upgradeManager.addEffect("increase_shot_count" , new MultiShotEffect());
@@ -264,7 +264,7 @@ public class Main extends ApplicationAdapter {
         upgradeManager.addEffect("increase_magazine_size" , new IncreaseMagazineEffect());
         upgradeManager.addEffect("quick_reload" , new ReloadIncreaseEffect());
 
-        enemytype = EnemyDataLoader.loadEnemyDataFromDirectory("concreate_game/resources/data/enemies");
+        enemytype = EnemyDataLoader.loadEnemyDataFromDirectory("resources/data/enemies");
         SpawnPositionStrategy spawnStrategy = new BorderSpawnStrategy(collisionManager);
         //Load Enemies Factories
         FactoryProvider<AbstractEnemyBuilder> factoryRegistery = new FactoryProvider();
@@ -275,7 +275,7 @@ public class Main extends ApplicationAdapter {
         enemyManager = new EnemyManager(collisionManager,spawnStrategy , factoryRegistery , factoryHitBoxRegistery);
 
         waveManager = new WaveManager(enemytype , enemyManager);
-        waveManager.loadWave("concreate_game/resources/data/waves");
+        waveManager.loadWave("resources/data/waves");
 
         enemyRenderer = new EnemyView(waveManager.getEnemies() ,rm , batch );
         enemyController = new EnemyController(droppedItemManager);

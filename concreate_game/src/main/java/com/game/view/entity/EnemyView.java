@@ -138,7 +138,7 @@ public class EnemyView extends AbstractEntityView {
 
         // Dessiner la barre de santé en rouge
         batch.setColor(1, 0, 0, 1); // Rouge
-        batch.draw((TextureRegion) rm.getResource("TextureRegion","concreate_game/assets/bg/White.png"), healthBarX, healthBarY, currentHealthWidth, barHeight);
+        batch.draw((TextureRegion) rm.getResource("TextureRegion","assets/bg/White.png"), healthBarX, healthBarY, currentHealthWidth, barHeight);
 
         // Réinitialiser la couleur
         batch.setColor(1, 1, 1, 1); // Blanc (par défaut)

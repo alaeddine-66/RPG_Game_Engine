@@ -1,5 +1,5 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.name =  'concreate_game'
+eclipse.project.name = 'concreate_game'
 
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -9,5 +9,14 @@ dependencies {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
 }
+
+sourceSets.main.resources.srcDirs += [
+        'resources',  // Dossier pour les ressources supplémentaires
+        'assets'     // Un autre dossier pour les assets
+      ]
+
+
+
+
 
 

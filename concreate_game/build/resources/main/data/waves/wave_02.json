@@ -1,0 +1,26 @@
+{
+  "waveNumber": 2,
+  "enemies": [
+    {
+      "id": "Normal",
+      "quantity": 8,
+      "delayAfterSpawn": 1000
+    },
+    {
+      "id": "Magician",
+      "quantity": 4,
+      "delayAfterSpawn": 1500
+    },
+    {
+      "id": "Normal",
+      "quantity": 8,
+      "delayAfterSpawn": 1000
+    },
+    {
+      "id": "Magician",
+      "quantity": 4,
+      "delayAfterSpawn": 1500
+    }
+  ]
+}
+

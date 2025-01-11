@@ -20,7 +20,7 @@ public class ExpBarComponent extends AbstractHUDComponents {
         super(batch, camera);
         this.experienceComponent = experienceComponent;
         this.shapeRenderer = new ShapeRenderer();
-        this.xpTexture = new Texture("concreate_game/assets/bg/xp.png");
+        this.xpTexture = new Texture("assets/bg/xp.png");
     }
 
     @Override

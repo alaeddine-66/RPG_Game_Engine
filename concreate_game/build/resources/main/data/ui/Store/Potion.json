@@ -1,0 +1,28 @@
+{
+  "potion": {
+    "category": "Potions",
+    "value": 300,
+    "description": "Une potion de soin basique qui restaure 50 points de vie.",
+    "effect": {
+      "heal": 50
+    }
+  },
+  "Legendry potion": {
+    "category": "Potions",
+    "value": 2000,
+    "description": "Une potion légendaire qui restaure complètement vos points de vie.",
+    "effect": {
+      "heal": "full"
+    }
+  },
+  "Divine potion": {
+    "category": "Potions",
+    "value": 5000,
+    "description": "Une potion divine qui restaure complètement vos points de vie et augmente temporairement votre force.",
+    "effect": {
+      "heal": "full",
+      "strength_boost": 20,
+      "duration": 300
+    }
+  }
+}

@@ -9,6 +9,7 @@ buildscript {
     }
   }
 }
+
 plugins {
   id "io.github.fourlastor.construo" version "1.4.1"
   id "application"
@@ -17,10 +18,18 @@ plugins {
 
 import io.github.fourlastor.construo.Target
 
-sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
-mainClassName = 'com.engine.lwjgl3.Lwjgl3Launcher'
-application.setMainClass(mainClassName)
-eclipse.project.name = 'lwjgl3'
+application {
+  // Définir la classe principale de l'application
+  mainClassName = 'com.engine.lwjgl3.Lwjgl3Launcher'
+}
+
+// Configurations spécifiques pour Eclipse
+eclipse {
+  project {
+    name = 'lwjgl3'
+  }
+}
+
 java.sourceCompatibility = 17
 java.targetCompatibility = 17
 if (JavaVersion.current().isJava9Compatible()) {
@@ -41,8 +50,11 @@ dependencies {
 def os = System.properties['os.name'].toLowerCase()
 
 run {
-  workingDir = projectDir.parentFile
+  workingDir = projectDir.parent+"/concreate_game"
   setIgnoreExitValue(true)
+  println("working dir  $workingDir")
+  println("root Project $rootProject")
+
 
   if (os.contains('mac')) jvmArgs += "-XstartOnFirstThread"
 }

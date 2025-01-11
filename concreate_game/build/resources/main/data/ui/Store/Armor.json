@@ -1,0 +1,27 @@
+{
+  "Lether Armour": {
+    "category": "Armor",
+    "value": 300,
+    "description": "Une armure légère en cuir qui offre une protection basique.",
+    "effect": {
+      "defense_boost": 5
+    }
+  },
+  "chaine mail": {
+    "category": "Armor",
+    "value": 2000,
+    "description": "Une cotte de mailles robuste qui offre une protection intermédiaire.",
+    "effect": {
+      "defense_boost": 15
+    }
+  },
+  "full plate": {
+    "category": "Armor",
+    "value": 5000,
+    "description": "Une armure complète qui offre une protection maximale.",
+    "effect": {
+      "defense_boost": 30,
+      "movement_penalty": 10
+    }
+  }
+}

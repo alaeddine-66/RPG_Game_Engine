@@ -1,0 +1,44 @@
+{
+  "upgrades": [
+    {
+      "name": "Increase Damage",
+      "description": "Increases weapon damage by 20%",
+      "effect": "damage_increase",
+      "value": 0.2
+    },
+    {
+      "name": "Faster Reload",
+      "description": "Reduces reload time by 10%",
+      "effect": "fire_rate",
+      "value": 0.1
+    },
+    {
+      "name": "Piercing Bullets",
+      "description": "Bullets can pierce through enemies",
+      "effect": "piercing"
+    },
+    {
+      "name": "More Projectiles",
+      "description": "Increases the number of projectiles per shot by 2",
+      "effect": "increase_shot_count",
+      "value": 2
+    },
+    {
+      "name": "Pursuit Projectiles",
+      "description": "Projectiles will chase enemies upon firing",
+      "effect": "pursuit_projectiles"
+    },
+    {
+      "name": "Increased Magazine Size",
+      "description": "Increases the magazine capacity of the pistol by 5",
+      "effect": "increase_magazine_size",
+      "value": 5
+    },
+    {
+      "name": "Quick Reload",
+      "description": "Reduces reload time by 20%",
+      "effect": "quick_reload",
+      "value": 0.2
+    }
+  ]
+}
