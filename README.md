@@ -48,26 +48,26 @@ Après avoir téléchargé le projet, configurez votre répertoire de travail po
 
 + Pour IntelliJ IDEA :
 
-1. Ouvrez le projet dans IntelliJ.
-
-2. Accédez aux Configurations d'Exécution (Run Configurations).
-
-3. Modifiez la Working Directory pour qu'elle pointe vers RPG_Game_Engine/concreate_game.
+  1. Ouvrez le projet dans IntelliJ.
+  
+  2. Accédez aux Configurations d'Exécution (Run Configurations).
+  
+  3. Modifiez la Working Directory pour qu'elle pointe vers RPG_Game_Engine/concreate_game.
 
 + Pour Eclipse :
 
-1. Cliquez avec le bouton droit sur la configuration de lancement dans Eclipse.
-
-2. Accédez à l'onglet Arguments.
-
-3. Changez le champ Working Directory pour RPG_Game_Engine/concreate_game.
+  1. Cliquez avec le bouton droit sur la configuration de lancement dans Eclipse.
+  
+  2. Accédez à l'onglet Arguments.
+  
+  3. Changez le champ Working Directory pour RPG_Game_Engine/concreate_game.
 
 + Pour Ligne de Commande :
 
-Avant de lancer le jeu, positionnez-vous dans le dossier concreate_game :
-```
-cd concreate_game
-```
+  Avant de lancer le jeu, positionnez-vous dans le dossier concreate_game :
+  ```
+  cd concreate_game
+  ```
 
 
 ### Étape 3 : Exécuter un Jeu Exemple
