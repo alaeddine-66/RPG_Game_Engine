@@ -5,35 +5,33 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class TileLayerManager {
-    private final int row;
-    private final int col;
-    private final int tileWidth;
-    private final int tileHeight;
+    private int row;
+    private int col;
+    private int tileWidth;
+    private int tileHeight;
+    private TiledMap map;
 
     public TileLayerManager(TiledMap map) {
-        int maxTileWidth = 0;
-        int maxTileHeight = 0;
-        int mapRows = 0;
-        int mapCols = 0;
+        this.map = map;
 
+        loadLayer(map);
+
+    }
+
+    private void loadLayer(TiledMap map) {
         for (MapLayer layer : map.getLayers()) {
             if (layer instanceof TiledMapTileLayer) {
                 TiledMapTileLayer tiledLayer = (TiledMapTileLayer) layer;
-                mapRows = Math.max(mapRows, tiledLayer.getHeight());
-                mapCols = Math.max(mapCols, tiledLayer.getWidth());
-                maxTileWidth = Math.max(maxTileWidth, tiledLayer.getTileWidth());
-                maxTileHeight = Math.max(maxTileHeight, tiledLayer.getTileHeight());
+                this.row = Math.max(row, tiledLayer.getHeight());
+                this.col = Math.max(col, tiledLayer.getWidth());
+                this.tileWidth = Math.max(tileWidth, tiledLayer.getTileWidth());
+                this.tileHeight = Math.max(tileHeight, tiledLayer.getTileHeight());
             }
         }
 
-        if (mapRows == 0 || mapCols == 0) {
+        if (row == 0 || col == 0) {
             throw new IllegalStateException("Aucune couche de tuiles valide trouvée.");
         }
-
-        this.row = mapRows;
-        this.col = mapCols;
-        this.tileWidth = maxTileWidth;
-        this.tileHeight = maxTileHeight;
     }
 
     public int getRow() {
